@@ -1,0 +1,26 @@
+
+
+.grid-container{
+    background-color: rgb(0, 255, 179);
+    /* border-style: solid; */
+    border-color: cornflowerblue;
+
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: 1fr 25px;
+    /* gap: 20px; */
+   
+}
+
+/* .grid-item{
+
+} */
+
+#statusBar{
+    grid-column: 1 / 3;
+}
+
+/* huh */
+p{
+    margin:0px;
+}

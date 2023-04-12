@@ -14,12 +14,13 @@ const config: ForgeConfig = {
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [
     new WebpackPlugin({
+      devContentSecurityPolicy:"default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;",
       mainConfig,
       renderer: {
         config: rendererConfig,
         entryPoints: [
           {
-            html: './src/index.html',
+            html: './src/public/index.html',
             js: './src/renderer.ts',
             name: 'main_window',
             preload: {
