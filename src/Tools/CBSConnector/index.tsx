@@ -1,19 +1,33 @@
-import { Button, Link } from "@fluentui/react-components";
-import { useState } from "react";
+import { Button, Link, makeStyles } from "@fluentui/react-components";
+import { Fragment, useState } from "react";
 import CBSCardGallery from "./CBSCardGallery";
 import Tabulate from "../_datahelpers/Tabulate";
 
 
-const initialData = {
-  data: [],
-  tableData: [],
-  currentTable: '',
-  loading: false,
-  error: null,
-  hideme: false
-}
+// const initialData = {
+//   data: [],
+//   tableData: [],
+//   currentTable: '',
+//   loading: false,
+//   error: null,
+//   hideme: false
+// }
+
+const useStyles = makeStyles({
+  root: {
+      textAlign: 'left',
+     
+    //  marginLeft: '20px'
+      height: '100%',
+      maxHeight: '100%',
+  },
+  hidden: {
+    display: 'none',
+  }
+});
 
 const CBSTool: React.FC = () => {
+  const classes = useStyles();
   const [data, setData] = useState(null);
   const [tableData, setTableData] = useState<{ [key: string]: any }>({});
   const [currentTable, setCurrentTable] = useState<{ [key: string]: any }>({});
@@ -38,6 +52,7 @@ const CBSTool: React.FC = () => {
   };
 
   const handleTableClick = (cbstable: any) => {
+   
     setLoading(true);
     setCurrentTable(cbstable)
     console.log(cbstable)
@@ -68,12 +83,12 @@ const CBSTool: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       <h1>CBS Tool Picker</h1>
       <Button onClick={handleClick}>Fetch</Button>  <Button onClick={() => { setData(null) }}>Clear</Button><Button onClick={() => { setCurrentTable({}); setHideMe(false) }}>Back</Button>
       {loading && <p>Loading...</p>}
-      {checkResponse(data) && !hideMe && <CBSCardGallery cbsdata={data} tableClick={handleTableClick}></CBSCardGallery>}
-      {checkResponse(tableData) && hideMe && currentTable && <div>
+      {checkResponse(data) && !hideMe &&  <Fragment><h1>tables fetched: {data.length}</h1><CBSCardGallery cbsdata={data} tableClick={handleTableClick}/></Fragment>}
+      {checkResponse(tableData) && hideMe && currentTable && <div style={{height: '600px', overflow: 'auto'}}>
         <h1>{currentTable.Title}</h1>
         <h2>{currentTable['Identifier']}</h2>
         count: {currentTable.ObservationCount}

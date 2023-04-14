@@ -9,6 +9,7 @@ const editorStyles = makeStyles({
         display: 'grid',
         gridTemplateRows: '32px 1fr',
         height: '100%',
+        maxHeight: '100%',
         backgroundColor: tokens.colorNeutralBackground2,
         '> .fui-Toolbar': {
             justifyContent: "space-between",

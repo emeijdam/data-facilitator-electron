@@ -16,9 +16,9 @@ export interface workBenchItem {
 export type workBenchItems = workBenchItem[];
 
 let initialWorkBenchItems: workBenchItems = [
-    { id: nanoid(), 'type': WorkBenchItemType.MARKDOWN, 'title': 'MARKDOWN File' },
-    { id: nanoid(), 'type': WorkBenchItemType.TOOL, 'title': 'DATA Tool' },
-    { id: nanoid(), 'type': WorkBenchItemType.CBSTOOL, 'title': 'CBS Tool' }
+    { id: nanoid(), 'type': WorkBenchItemType.MARKDOWN, 'title': 'MarkdownFile' },
+    { id: nanoid(), 'type': WorkBenchItemType.CBSTOOL, 'title': 'CBS Tool' },
+    { id: nanoid(), 'type': WorkBenchItemType.TOOL, 'title': 'Data Tool' },
 ];
 
 // An interface for our state

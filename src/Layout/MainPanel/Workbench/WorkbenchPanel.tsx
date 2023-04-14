@@ -7,6 +7,7 @@ const useStyles = makeStyles({
     root: {
         display: 'grid',
         height: '100%',
+        maxHeight: '100%'
     },
     panel: {
         gridTemplateColumns: '200px 1px 1fr',
