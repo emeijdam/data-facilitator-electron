@@ -53,7 +53,6 @@
     "react-dom": "^18.2.0",
     "react-download-link": "^2.3.0",
     "react-markdown": "^8.0.6",
-    "react-split": "^2.0.14",
     "remark-gfm": "^3.0.1"
   }
 }

@@ -39,6 +39,7 @@ https://odata4.cbs.nl/Datasets?$top=10000
 
 ## Components
 https://github.com/eligrey/FileSaver.js#readme
-
 https://stuk.github.io/jszip/
-https://www.npmjs.com/package/react-split
+https://xtermjs.org
+https://github.com/johnwalley/allotment
+

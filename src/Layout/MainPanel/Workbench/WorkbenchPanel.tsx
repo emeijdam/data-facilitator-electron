@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import PrimarySideBar from './PrimarySidebar/PrimarySideBar';
 import Editor from './Editor/Editor'
 import { Allotment } from "allotment";
+import "allotment/dist/style.css";
 
 const useStyles = makeStyles({
     root: {
