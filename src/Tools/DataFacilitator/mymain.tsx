@@ -1,6 +1,15 @@
-import { Button, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, DialogTrigger } from "@fluentui/react-components";
+import { Button, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, DialogTrigger, makeStyles, shorthands } from "@fluentui/react-components";
 import { useState } from "react";
 import ConnectorPicker from "./ConnectorPicker";
+
+const useStyles = makeStyles({
+    dit: {
+     
+        //height: '100%;',
+       // ...shorthands.overflow('scroll'),
+      
+    },
+})
 
 const initialDataTables = [
     {
@@ -23,9 +32,10 @@ const initialDataTables = [
 
 const DOEN: React.FC = () => {
     const [dataTables, setDataTables] = useState(initialDataTables)
+    const classes = useStyles();
 
     return (
-        <div>
+        <div id='doen' className={classes.dit}>
             <h1>Connectors</h1>
             <Dialog>
                 <DialogTrigger disableButtonEnhancement>

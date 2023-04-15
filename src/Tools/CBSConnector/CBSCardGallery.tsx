@@ -11,7 +11,7 @@ const useStyles = makeStyles({
        // height: '100%'
       // maxHeight: '1%',
        height: '100%',
-       maxHeight: '540px',
+      // maxHeight: '540px',
        minHeight: '0px',
        overflowY: 'scroll',
       // backgroundColor: 'yellow',

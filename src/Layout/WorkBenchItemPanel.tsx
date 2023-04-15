@@ -1,4 +1,4 @@
-import { makeStyles, tokens } from '@fluentui/react-components';
+import { makeStyles, shorthands, tokens } from '@fluentui/react-components';
 import { workBenchItem, WorkBenchItemType } from './state'
 import MarkDown from '../Tools/MarkDown';
 import DataFacilitator from '../Tools/DataFacilitator';
@@ -16,6 +16,8 @@ const useStyles = makeStyles({
     //  marginLeft: '20px'
       height: '100%',
       maxHeight: '100%',
+     // overflowY: 'scroll'
+      ...shorthands.overflow('scroll'),
   },
   hidden: {
     display: 'none',

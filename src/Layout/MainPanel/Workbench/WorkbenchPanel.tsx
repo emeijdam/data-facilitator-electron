@@ -1,4 +1,4 @@
-import { makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
+import { makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
 import React, { Fragment } from 'react';
 import PrimarySideBar from './PrimarySidebar/PrimarySideBar';
 import Editor from './Editor/Editor'
@@ -7,7 +7,8 @@ const useStyles = makeStyles({
     root: {
         display: 'grid',
         height: '100%',
-        maxHeight: '100%'
+        maxHeight: '100%',
+        ...shorthands.overflow('hidden'),
     },
     panel: {
         gridTemplateColumns: '200px 1px 1fr',
@@ -34,7 +35,7 @@ const WorkbenchPanel: React.FC<workbenchPanelProps> = ({ PrimarySideBarOn }) => 
     const merged = mergeClasses(classes.root, PrimarySideBarOn ? classes.panel : classes.paneloff)
 
     return (
-        <div className={merged}>
+        <div id='wbp' className={merged}>
             {PrimarySideBarOn && (
                 <Fragment>
                     <PrimarySideBar/>

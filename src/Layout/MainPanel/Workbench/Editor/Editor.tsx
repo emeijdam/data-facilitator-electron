@@ -10,6 +10,7 @@ const editorStyles = makeStyles({
         gridTemplateRows: '32px 1fr',
         height: '100%',
         maxHeight: '100%',
+        overflowY: 'scroll',
         backgroundColor: tokens.colorNeutralBackground2,
         '> .fui-Toolbar': {
             justifyContent: "space-between",
