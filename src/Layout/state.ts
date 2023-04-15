@@ -15,8 +15,8 @@ export interface workBenchItem {
 
 export type workBenchItems = workBenchItem[];
 
-let initialWorkBenchItems: workBenchItems = [
-    { id: nanoid(), 'type': WorkBenchItemType.MARKDOWN, 'title': 'MARKDOWN File' },
+const initialWorkBenchItems: workBenchItems = [
+    // { id: nanoid(), 'type': WorkBenchItemType.MARKDOWN, 'title': 'MARKDOWN File' },
     { id: nanoid(), 'type': WorkBenchItemType.TOOL, 'title': 'DATA Tool' },
     { id: nanoid(), 'type': WorkBenchItemType.CBSTOOL, 'title': 'CBS Tool' }
 ];
@@ -30,6 +30,6 @@ export interface AppState {
 
 export const initialAppState: AppState = {
     userstatusBarMessagename: '',
-    activeWorkBenchIndex: '',
+    activeWorkBenchIndex: initialWorkBenchItems[initialWorkBenchItems.length -1].id,
     workbenchItems: initialWorkBenchItems,
 };

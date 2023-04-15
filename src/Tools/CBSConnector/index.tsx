@@ -57,9 +57,9 @@ const CBSTool: React.FC = () => {
 
   function checkResponse(data: any) {
     if (data) {
-      for (let i = 0; i < data.length; i++) {
-        let obj = data[i];
-      }
+      // for (let i = 0; i < data.length; i++) {
+      //   let obj = data[i];
+      // }
 
       return <p>Fetched</p>;
     } else {

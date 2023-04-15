@@ -2,17 +2,14 @@ import './layout.css';
 import SideToolBarPanel from './MainPanel/SideToolBarPanel'
 import WorkbenchPanel from './MainPanel/Workbench/WorkbenchPanel';
 import StatusBar from './MainPanel/StatusBar';
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import { ToolbarProps } from "@fluentui/react-components";
 import { initialAppState} from './state'
 import { ActionType} from './actions'
 import { appReducer } from './reducer';
 import { AppContext } from './context';
 
-type GridProps = {
-};
-
-const AppLayoutGrid: React.FC<GridProps> = () => {
+const AppLayoutGrid: React.FC = () => {
   const [state, dispatch] = useReducer(appReducer, initialAppState);
   const [checkedValues, setCheckedValues] = useState<Record<string, string[]>>({ textOptions: ["doc"], });
 
@@ -24,8 +21,13 @@ const AppLayoutGrid: React.FC<GridProps> = () => {
     });
   };
 
-  if (state.activeWorkBenchIndex === '') {state.activeWorkBenchIndex = state.workbenchItems.length !== 0 ? state.workbenchItems[0].id : ''}
+ 
 
+  useEffect(() => {
+    //if (state.activeWorkBenchIndex === '') {state.activeWorkBenchIndex = state.workbenchItems.length !== 0 ? state.workbenchItems[state.workbenchItems.length -1].id : ''}
+    dispatch({ type: ActionType.SetStatusBarMessage, payload: 'Welcome!' })
+  }, [])
+  
   return (
     <div id='grid-container-1' className='grid-container'>
       <GridItem name='menu'>
@@ -37,7 +39,7 @@ const AppLayoutGrid: React.FC<GridProps> = () => {
         </AppContext.Provider>
       </GridItem>
       <GridItem name='statusBar'>
-        <StatusBar onClick={() => dispatch({ type: ActionType.SetStatusBarMessage, payload: 'hallo' })}>{state.userstatusBarMessagename}</StatusBar>
+        <StatusBar onClick={() => dispatch({ type: ActionType.SetStatusBarMessage, payload: 'hallo' })} message={state.userstatusBarMessagename}></StatusBar>
       </GridItem>
     </div>
   );
