@@ -9,7 +9,8 @@ const useStyles = makeStyles({
         backgroundColor: tokens.colorNeutralBackground3, 
         textAlign: 'left',
         paddingTop: '3px',
-        paddingLeft: '15px'
+        paddingLeft: '15px',
+        overflowY: 'scroll'
     }
   });
 

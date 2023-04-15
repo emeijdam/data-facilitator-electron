@@ -6,11 +6,30 @@ const useStyles = makeStyles({
     grid: {
         display: 'grid',
         gridTemplateColumns: "1fr 1fr 1fr",
+        //gridTemplateRows: "1fr",
         gridGap: '10px',
+       // height: '100%'
+      // maxHeight: '1%',
+       height: '100%',
+      // maxHeight: '540px',
+       minHeight: '0px',
+       overflowY: 'scroll',
+      // backgroundColor: 'yellow',
+    
     },
-    gridItem: {
-
+    gridItemx: {
+       // minHeight: '0',
+       // overflowY: 'scroll'
+    },
+    gridContainer: {
+       // maxHeight: '100%',
+       // height: '1%;',
+        overflowY: 'scroll',
+       // backgroundColor: 'blue',
+        height: 'calc(100% - 200px)'
+        
     }
+
 });
 
 interface CBSCardGalleryProps {
@@ -23,19 +42,18 @@ const CBSCardGallery: React.FC<CBSCardGalleryProps> = ({ cbsdata, tableClick }: 
 
     const listItems = cbsdata.filter((table: { Status: string; }) => table.Status !== 'joop').map((cbsdata: any) =>
     (
-        <div key={cbsdata.Identifier} className={styles.gridItem}>
+        <div key={cbsdata.Identifier} className={styles.gridItemx}>
             <CBSCard cbstable={cbsdata} tableClick={tableClick} />
         </div>
     )
     );
 
     return (
-        <Fragment>
-            <h1>tables fetched: {cbsdata.length}</h1>
-            <div id="CBSCardGallery" className={styles.grid}>
-                {listItems}
+            <div id='stroll' className={styles.gridContainer}>
+                <div id="CBSCardGallery" className={styles.grid}>
+                    {listItems}
+                </div>
             </div>
-        </Fragment>
     )
 }
 
