@@ -2,6 +2,7 @@ import { makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-co
 import React, { Fragment } from 'react';
 import PrimarySideBar from './PrimarySidebar/PrimarySideBar';
 import Editor from './Editor/Editor'
+import { Allotment } from "allotment";
 
 const useStyles = makeStyles({
     root: {
@@ -27,8 +28,18 @@ const useStyles = makeStyles({
 
 type workbenchPanelProps = {
     PrimarySideBarOn?: boolean,
+    grid: React.FC
 };
 
+const App = () => {
+return (
+        <Allotment vertical={false}>
+            <PrimarySideBar/>
+            <Editor/>
+        </Allotment>
+  )
+}
+  
 
 const WorkbenchPanel: React.FC<workbenchPanelProps> = ({ PrimarySideBarOn }) => {
     const classes = useStyles();
@@ -38,13 +49,13 @@ const WorkbenchPanel: React.FC<workbenchPanelProps> = ({ PrimarySideBarOn }) => 
         <div id='wbp' className={merged}>
             {PrimarySideBarOn && (
                 <Fragment>
-                    <PrimarySideBar/>
+                    <PrimarySideBar />
                     <div id='seperator' className={classes.seperator}></div>
                 </Fragment>
             )}
-            <Editor/>
+            <Editor />
         </div>
     )
 }
 
-export default WorkbenchPanel;
+export default App;
