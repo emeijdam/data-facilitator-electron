@@ -48,8 +48,8 @@ const WorkBenchItemPanel = ({ workBenchItem, activeIndex }: WorkBenchItemPanelPr
         //return <DataFacilitator />;
       case WorkBenchItemType.CBSTOOL:
           return <CBSTool />;
-      case WorkBenchItemType.THEANALIST:
-            return <TheAnalist />;
+      // case WorkBenchItemType.THEANALIST:
+      //       return <TheAnalist />;
       default:
         return null;
     }
