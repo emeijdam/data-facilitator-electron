@@ -20,13 +20,13 @@ const useStyles = makeStyles({
     root: {
        width: '64px',
        height: '64px',
-       ...shorthands.padding('10px'),
-       ...shorthands.border('1px', 'solid', 'red'),
-       textAlign: 'center',
-       backgroundColor: 'green',
+        ...shorthands.padding('10px'),
+        ...shorthands.border('1px', 'solid', 'red'),
+        textAlign: 'center',
+        backgroundColor: 'green',
 
     }
-  });
+});
 
   const resolveAsset = (asset: string) => {
     const ASSET_URL =
@@ -101,7 +101,7 @@ const initialConnectors = [
 
 
 
- // https://developer.microsoft.com/en-us/fluentui#/styles/web/m365-product-icons
+// https://developer.microsoft.com/en-us/fluentui#/styles/web/m365-product-icons
 const longList = [...initialConnectors, ...initialConnectors, ...initialConnectors]
 const shortList = [...initialConnectors]
 
@@ -109,7 +109,7 @@ const ConnectorPicker: React.FC = () => {
     const classes = useStyles();
     const [connectors, setconnectors] = useState(shortList)
 
-    const listConnectors = connectors.map((connector: any) => 
+    const listConnectors = connectors.map((connector: any) =>
         <div className={classes.root}> 
             <Image src={sharepointLogo}/>
             {connector.name}
@@ -118,7 +118,7 @@ const ConnectorPicker: React.FC = () => {
 
     return (
         <div id='huh' className={classes.gridContainer}>
-            {listConnectors}   
+            {listConnectors}
         </div>
     );
 }
