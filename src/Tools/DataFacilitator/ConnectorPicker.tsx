@@ -2,7 +2,6 @@ import { makeStyles, shorthands, Image} from "@fluentui/react-components";
 import { useState } from "react";
 
 
-
 const useStyles = makeStyles({
     gridContainer: {
         display: 'inline-grid',
@@ -19,8 +18,8 @@ const useStyles = makeStyles({
         ...shorthands.overflow('hidden'),
     },
     root: {
-       width: '250px',
-       height: '150px',
+       width: '64px',
+       height: '64px',
        ...shorthands.padding('10px'),
        ...shorthands.border('1px', 'solid', 'red'),
        textAlign: 'center',
@@ -29,59 +28,7 @@ const useStyles = makeStyles({
     }
   });
 
-  
-const initialConnectors = [
-    {
-        name: 'Excel',
-        description: 'beschrijving',
-        type: 'odata4',
-        connectorConfiguration: {
-            url: ''
-        }
-    },
-    {
-        name: 'CSV',
-        description: 'beschrijving',
-        type: 'odata4',
-        connectorConfiguration: {
-            url: ''
-        }
-    },
-    {
-        name: 'ODATA',
-        description: 'beschrijving',
-        type: 'odata4',
-        connectorConfiguration: {
-            url: ''
-        }
-    },
-    {
-        name: 'CSV',
-        description: 'beschrijving',
-        type: 'odata4',
-        connectorConfiguration: {
-            url: ''
-        }
-    },
-    {
-        name: 'XML',
-        description: 'beschrijving',
-        type: 'odata4',
-        connectorConfiguration: {
-            url: ''
-        }
-    },
-    {
-        name: 'JSON',
-        description: 'beschrijving',
-        type: 'odata4',
-        connectorConfiguration: {
-            url: ''
-        }
-    },
-]
-
-const resolveAsset = (asset: string) => {
+  const resolveAsset = (asset: string) => {
     const ASSET_URL =
       "https://res-1.cdn.office.net/files/fabric-cdn-prod_20221209.001/assets/brand-icons/product/svg/";
     return `${ASSET_URL}${asset}`;
@@ -92,16 +39,81 @@ const resolveAsset = (asset: string) => {
   const powerpointLogo = resolveAsset("powerpoint_48x1.svg");
   const onedriveLogo = resolveAsset("onedrive_48x1.svg");
   const sharepointLogo = resolveAsset("sharepoint_48x1.svg");
+
+const initialConnectors = [
+    {
+        name: 'Excel',
+        description: 'beschrijving',
+        type: 'odata4',
+        connectorConfiguration: {
+            url: ''
+        },
+        image:  excelLogo
+    },
+    {
+        name: 'CSV',
+        description: 'beschrijving',
+        type: 'odata4',
+        connectorConfiguration: {
+            url: ''
+        },
+        image:  excelLogo
+    },
+    {
+        name: 'ODATA',
+        description: 'beschrijving',
+        type: 'odata4',
+        connectorConfiguration: {
+            url: ''
+        },
+        image:  onedriveLogo
+    },
+    {
+        name: 'CSV',
+        description: 'beschrijving',
+        type: 'odata4',
+        connectorConfiguration: {
+            url: ''
+        },
+        image:  excelLogo
+    },
+    {
+        name: 'XML',
+        description: 'beschrijving',
+        type: 'odata4',
+        connectorConfiguration: {
+            url: ''
+        },
+        image:  excelLogo
+    },
+    {
+        name: 'JSON',
+        description: 'beschrijving',
+        type: 'odata4',
+        connectorConfiguration: {
+            url: ''
+        },
+        image:  sharepointLogo
+    },
+]
+
+
+
+
+
  // https://developer.microsoft.com/en-us/fluentui#/styles/web/m365-product-icons
-const longlist = [...initialConnectors, ...initialConnectors, ...initialConnectors]
+const longList = [...initialConnectors, ...initialConnectors, ...initialConnectors]
+const shortList = [...initialConnectors]
 
 const ConnectorPicker: React.FC = () => {
     const classes = useStyles();
-    const [connectors, setconnectors] = useState(longlist)
+    const [connectors, setconnectors] = useState(shortList)
 
     const listConnectors = connectors.map((connector: any) => 
-        <div className={classes.root}> <Image src={sharepointLogo}/>
-      {connector.name}</div>
+        <div className={classes.root}> 
+            <Image src={sharepointLogo}/>
+            {connector.name}
+        </div>
     )
 
     return (

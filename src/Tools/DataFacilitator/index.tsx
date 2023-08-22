@@ -68,7 +68,7 @@ const DataFacilitator: React.FC<toolProps> = () => {
   const handleClick = () => {
     setLoading(true);
     // ?$filter=WijkenEnBuurten eq \'GM0363\'
-    let tableid = '03763';
+    const tableid = '03763';
 
     fetch(`https://odata4.cbs.nl/CBS/${tableid}/Observations`)
       .then(response => response.json())
@@ -86,7 +86,7 @@ const DataFacilitator: React.FC<toolProps> = () => {
   function checkResponse(data: any) {
     if (data) {
       for (let i = 0; i < data.length; i++) {
-        let obj = data[i];
+        const obj = data[i];
 
         //  console.log(obj);
       }

@@ -42,7 +42,7 @@ const WorkbenchPanel: React.FC<workbenchPanelProps> = ({ PrimarySideBarOn }) => 
                     <div id='seperator' className={classes.seperator}></div>
                 </Fragment>
             )}
-            <Editor/>
+            <Editor unknow={undefined}/>
         </div>
     )
 }

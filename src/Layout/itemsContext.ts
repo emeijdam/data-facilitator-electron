@@ -9,6 +9,8 @@ type ItemsContextType = [
     Dispatch<React.SetStateAction<workBenchItem[]>>
 ]
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const MyItemsContext = createContext<ItemsContextType>([[], () => { }]);
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const DisptachContext = createContext<Dispatch<Action>>(() => {});

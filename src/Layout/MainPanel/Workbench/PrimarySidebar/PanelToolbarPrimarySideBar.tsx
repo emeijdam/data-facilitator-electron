@@ -2,9 +2,10 @@ import { Toolbar, ToolbarProps, } from "@fluentui/react-components";
 import * as React from "react";
 import PrimarySideBarToolBarGroup from './PrimarySideBarToolBarGroup'
 
-type panelToolbarPrimarySideBarProps = ToolbarProps & {
+type panelToolbarPrimarySideBarProps = ToolbarProps 
+//& {
 
-};
+//};
 
 const PanelToolbarPrimarySideBar: React.FC<panelToolbarPrimarySideBarProps> = () => {
   return (

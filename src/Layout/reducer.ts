@@ -12,7 +12,8 @@ export function appReducer(state: AppState, action: AppActions) {
       action.payload.id = nanoid()
       return { ...state, workbenchItems: state.workbenchItems.concat(action.payload) };
     case ActionType.RemoveWorkbenchTool:
-      let newWorkbenchItems = state.workbenchItems.filter((item) => item.id !== action.payload)
+      // eslint-disable-next-line no-case-declarations
+      const newWorkbenchItems = state.workbenchItems.filter((item) => item.id !== action.payload)
       console.log(newWorkbenchItems.length)
       return {
         ...state,

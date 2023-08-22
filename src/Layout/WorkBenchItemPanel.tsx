@@ -3,7 +3,11 @@ import { workBenchItem, WorkBenchItemType } from './state'
 import MarkDown from '../Tools/MarkDown';
 import DataFacilitator from '../Tools/DataFacilitator';
 import CBSTool from '../Tools/CBSConnector';
+import TheAnalist from '../Tools/TheAnalist';
 import DOEN from '../Tools/DataFacilitator/mymain';
+
+
+
 
 const useStyles = makeStyles({
   root: {
@@ -44,6 +48,8 @@ const WorkBenchItemPanel = ({ workBenchItem, activeIndex }: WorkBenchItemPanelPr
         //return <DataFacilitator />;
       case WorkBenchItemType.CBSTOOL:
           return <CBSTool />;
+      case WorkBenchItemType.THEANALIST:
+            return <TheAnalist />;
       default:
         return null;
     }

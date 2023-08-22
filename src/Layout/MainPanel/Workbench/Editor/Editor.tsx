@@ -34,8 +34,7 @@ const editorStyles = makeStyles({
     }
 })
 
-type editorProps = {
-};
+type editorProps = {unknow: unknown};
 
 const Editor: React.FC<editorProps> = () => {
     const { state } = useContext(AppContext);

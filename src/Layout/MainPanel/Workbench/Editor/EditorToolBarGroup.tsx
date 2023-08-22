@@ -38,6 +38,7 @@ const useStyles = makeStyles({
   }
 });
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
   // workBenchItems: workBenchItems,
   // SetActiveWorkbenchItem: (params: any) => any,

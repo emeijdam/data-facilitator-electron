@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 interface CBSCardGalleryProps {
     cbsdata: any,
     tableClick: (params: any) => any;
-};
+}
 
 const CBSCardGallery: React.FC<CBSCardGalleryProps> = ({ cbsdata, tableClick }: CBSCardGalleryProps) => {
     const styles = useStyles();

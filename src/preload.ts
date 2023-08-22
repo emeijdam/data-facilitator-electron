@@ -2,7 +2,8 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
   window.onload = function() {
-    let {ipcRenderer} = require('electron');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const {ipcRenderer} = require('electron');
 
       window.addEventListener('contextmenu', (e) => {
         e.preventDefault()

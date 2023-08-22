@@ -35,6 +35,7 @@ const primarySideBarStyles = makeStyles({
   }
 })
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type primarySideBarProps = {
 };
 
@@ -63,6 +64,7 @@ const treeItemStyles = makeStyles({
   }
 })
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type treeProps = {
 };
 
