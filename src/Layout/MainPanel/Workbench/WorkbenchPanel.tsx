@@ -27,8 +27,11 @@ const useStyles = makeStyles({
 
 type workbenchPanelProps = {
     PrimarySideBarOn?: boolean,
+    grid: React.FC
 };
 
+
+  
 
 const WorkbenchPanel: React.FC<workbenchPanelProps> = ({ PrimarySideBarOn }) => {
     const classes = useStyles();
@@ -38,7 +41,7 @@ const WorkbenchPanel: React.FC<workbenchPanelProps> = ({ PrimarySideBarOn }) => 
         <div id='wbp' className={merged}>
             {PrimarySideBarOn && (
                 <Fragment>
-                    <PrimarySideBar/>
+                    <PrimarySideBar />
                     <div id='seperator' className={classes.seperator}></div>
                 </Fragment>
             )}
