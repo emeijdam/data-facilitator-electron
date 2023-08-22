@@ -37,3 +37,9 @@ https://github.com/nathancahill/split/tree/master/packages/react-split-grid
 
 https://odata4.cbs.nl/Datasets?$top=10000
 
+## Components
+https://github.com/eligrey/FileSaver.js#readme
+https://stuk.github.io/jszip/
+https://xtermjs.org
+https://github.com/johnwalley/allotment
+
