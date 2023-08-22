@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, DialogTrigger, makeStyles, shorthands } from "@fluentui/react-components";
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import ConnectorPicker from "./ConnectorPicker";
 import Tabulate from "../_datahelpers/Tabulate";
 
@@ -68,12 +68,12 @@ function userReducer(state: ImportConnectionsSTATE, action: UserAction): ImportC
   }
 
 const DOEN: React.FC = () => {
-    const [dataTables, setDataTables] = useState(stateding)
+   // const [dataTables, setDataTables] = useState(stateding)
     const [imports, userDispatch] = useReducer(userReducer, initialImportConnections);
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    //const [error, setError] = useState(null);
   
   
     const handleClick = () => {
