@@ -3,168 +3,22 @@ import { useReducer, useState } from "react";
 import ConnectorPicker from "./ConnectorPicker";
 import Tabulate from "../_datahelpers/Tabulate";
 import { nanoid } from 'nanoid';
+import { flowReducer } from "./flowReducer";
+import { FlowNodeType, initialFlowState, nodeClass } from "./flowState";
+import { FlowActionType } from "./flowActions";
+
 
 const useStyles = makeStyles({
     dit: {
-
         //height: '100%;',
         // ...shorthands.overflow('scroll'),
     },
 })
 
-/// between 
-enum nodeClass {
-    SOURCENODE,
-    EXPORTNODE
-}
-
-enum FlowActionType {
-    ADDNODE,
-    DELETENODE,
-    EXECUTEFLOW
-}
-
-type FlowAction =
-    | { type: FlowActionType.ADDNODE; node: FlowNode }
-    | { type: FlowActionType.DELETENODE; nodeID: string }
-
-type FlowNode = {
-    nodeID: string,
-    nodeClass: nodeClass,
-    name: string,
-    description: string,
-    type: string,
-    //properties: []
-}
-
-
-type initFlowState ={
-    nodes: FlowNode[],
-  }
-
-
-const initialFlowState = 
-    {
-    nodes: [
-        {
-            nodeID: nanoid(),
-            nodeClass: nodeClass.SOURCENODE,
-            name: 'CBS Table Observation',
-            description: 'beschrijving',
-            type: 'odata4',
-            // properties: {
-            //     url: ''
-            // }
-        },
-        {
-            nodeID: nanoid(),
-            nodeClass: nodeClass.EXPORTNODE,
-            name: 'SPSS Save',
-            description: 'beschrijving',
-            type: 'SPSS',
-            // properties: {
-            //     filename: 'c:\\temp\\spssfile.sav'
-            // }
-        },
-    ]
-}
-
-
-
-
-function flowReducer(state: initFlowState, action: FlowAction): initFlowState {
-  //  const { type, payload } = action;
-    switch (action.type) {
-        case FlowActionType.ADDNODE:
-            console.log(state);
-            return {nodes: [...state.nodes, action.node]}
-        case FlowActionType.DELETENODE:
-            console.log(state)
-          //  items: state.items.filter((item) => item.id !== action.payload),
-          
-           // return state.filter( (node) => node.nodeID !== action.nodeID );
-            return {nodes: [...state.nodes.filter((node) => node.nodeID !== action.nodeID )]}
-        default:
-            throw new Error();
-    }
-}
-///
-
-
-// const initialDataTables = [
-//     {
-//         nodeID: nanoid(),
-//         name: 'CBS Table Observation',
-//         description: 'beschrijving',
-//         type: 'odata4',
-//         connectorConfiguration: {
-//             url: ''
-//         }
-//     },
-//     {
-//         nodeID: nanoid(),
-//         name: 'CBS Table Metadata',
-//         description: 'beschrijving',
-//         type: 'odata4',
-//         connectorConfiguration: {
-//             url: ''
-//         }
-//     },
-// ]
-
-// const stateding =
-// {
-//     "imports": initialDataTables,
-//     "exports": initialDataTables
-// }
-
-
-
-// enum UserActionType {
-//     ADD = "addImport",
-//     DELETE = "Delete"
-// }
-
-// interface Connection {
-//     nodeID: string,
-//     name: string,
-//     description: string,
-//     type: string
-//     connectorConfiguration: { url: string }
-// }
-
-// type ImportConnectionsSTATE = Connection[];
-
-// const initialImportConnections: ImportConnectionsSTATE = initialDataTables;
-
-// type UserAction =
-//     | { type: UserActionType.ADD; connection: Connection }
-//     | { type: UserActionType.DELETE; nodeID: string }
-
-// function userReducer(state: ImportConnectionsSTATE, action: UserAction): ImportConnectionsSTATE {
-//     switch (action.type) {
-//         case UserActionType.ADD:
-//             console.log(state)
-//             return [...state, action.connection];
-//         case UserActionType.DELETE:
-//             console.log(state)
-//           //  items: state.items.filter((item) => item.id !== action.payload),
-          
-//             return state.filter( (node) => node.nodeID !== action.nodeID );
-//         default:
-//             throw new Error();
-//     }
-// }
-
-const DOEN: React.FC = () => {
-    // const [dataTables, setDataTables] = useState(stateding)
+const FlowEditor: React.FC = () => {
     const [flowDocument, flowActionDispatch] = useReducer(flowReducer, initialFlowState);
-   // const [imports, userDispatch] = useReducer(userReducer, initialImportConnections);
-
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
-    //const [error, setError] = useState(null);
-
 
     const handleClick = () => {
         setLoading(true);
@@ -184,25 +38,8 @@ const DOEN: React.FC = () => {
             });
     };
 
-
-
-    // const handleClickAdd = () => {
-    //     userDispatch({
-    //         type: UserActionType.ADD,
-    //         connection: {
-    //             nodeID: nanoid(),
-    //             name: 'CBS Table Observation',
-    //             description: 'beschrijving',
-    //             type: 'odata4',
-    //             connectorConfiguration: {
-    //                 url: ''
-    //             }
-    //         },
-    //     });
-    // }
-
     const AddNode = () => {
-        const x:FlowNode = {
+        const x:FlowNodeType = {
                 nodeID: nanoid(),
                 nodeClass: nodeClass.SOURCENODE,
                 name: 'CBS Table Observation',
@@ -226,15 +63,6 @@ const DOEN: React.FC = () => {
             }
         );
     }
-
-    // const handleClickDelete = (nodeid: string) => {
-    //     userDispatch({
-    //         type: UserActionType.DELETE,
-    //         nodeID: nodeid
-    //         }
-    //     );
-    // }
-
 
     function checkResponse(data: any) {
         if (data) {
@@ -324,4 +152,4 @@ const DOEN: React.FC = () => {
     );
 }
 
-export default DOEN;
+export default FlowEditor;

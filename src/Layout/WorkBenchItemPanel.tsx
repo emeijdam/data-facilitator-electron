@@ -4,7 +4,7 @@ import MarkDown from '../Tools/MarkDown';
 import DataFacilitator from '../Tools/DataFacilitator';
 import CBSTool from '../Tools/CBSConnector';
 import TheAnalist from '../Tools/TheAnalist';
-import DOEN from '../Tools/DataFacilitator/mymain';
+import FlowEditor from '../Tools/DataFacilitator/mymain';
 
 
 
@@ -44,7 +44,7 @@ const WorkBenchItemPanel = ({ workBenchItem, activeIndex }: WorkBenchItemPanelPr
       case WorkBenchItemType.HTML:
         return <div>some html</div>;
       case WorkBenchItemType.TOOL:
-        return <DOEN/>
+        return <FlowEditor/>
         //return <DataFacilitator />;
       case WorkBenchItemType.CBSTOOL:
           return <CBSTool />;
