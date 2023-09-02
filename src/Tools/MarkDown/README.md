@@ -30,6 +30,8 @@ https://blog.logrocket.com/using-react-children-prop-with-typescript/
 
 https://codesandbox.io/s/ig97op?file=/App.js&utm_medium=sandpack
 
+https://stackoverflow.com/questions/66152989/contextbridge-exposeinmainworld-and-ipc-with-typescript-in-electron-app-cannot
+
 ### Split-grid
 https://github.com/nathancahill/split/tree/master/packages/react-split-grid
 

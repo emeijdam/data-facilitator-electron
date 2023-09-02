@@ -35,7 +35,7 @@ const AppLayoutGrid: React.FC = () => {
       </GridItem>
       <GridItem name='main'>
         <AppContext.Provider value={{state, dispatch}}>
-          <WorkbenchPanel PrimarySideBarOn/>
+          <WorkbenchPanel PrimarySideBarOn grid={undefined}/>
         </AppContext.Provider>
       </GridItem>
       <GridItem name='statusBar'>

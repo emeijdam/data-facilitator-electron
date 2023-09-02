@@ -1,12 +1,10 @@
 import { makeStyles, shorthands, tokens } from '@fluentui/react-components';
 import { workBenchItem, WorkBenchItemType } from './state'
 import MarkDown from '../Tools/MarkDown';
-import DataFacilitator from '../Tools/DataFacilitator';
+import DataFacilitator from '../Tools/DataFacilitator/kanweg';
 import CBSTool from '../Tools/CBSConnector';
 import TheAnalist from '../Tools/TheAnalist';
-import FlowEditor from '../Tools/DataFacilitator/mymain';
-
-
+import FlowEditor from '../Tools/DataFacilitator';
 
 
 const useStyles = makeStyles({

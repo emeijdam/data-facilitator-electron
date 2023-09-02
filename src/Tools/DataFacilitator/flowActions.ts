@@ -1,12 +1,14 @@
-import { FlowNodeType } from "./flowState";
+import { TFlowNode } from "./flowState";
 
 export enum FlowActionType {
     ADDNODE,
     DELETENODE,
+    UPDATENODE,
     EXECUTEFLOW
 }
 
-type AddNodeType = { type: FlowActionType.ADDNODE; node: FlowNodeType }
-type DeleteNodeType = { type: FlowActionType.DELETENODE; nodeID: string }
+type TAddNode = { type: FlowActionType.ADDNODE; payload: TFlowNode }
+type TDeleteNode = { type: FlowActionType.DELETENODE; payload: string }
+type TUpdateNode = { type: FlowActionType.UPDATENODE; payload: TFlowNode }
 
-export type FlowAction = AddNodeType | DeleteNodeType
+export type flowActions = TAddNode| TDeleteNode | TUpdateNode;

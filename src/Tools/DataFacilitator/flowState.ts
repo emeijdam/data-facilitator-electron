@@ -1,62 +1,90 @@
 import { nanoid } from 'nanoid';
 
-export enum WorkBenchItemType {
-    MARKDOWN,
-    HTML,
-    TOOL,
-    CBSTOOL,
-    THEANALIST
-}
-
-export interface workBenchItem {
-    id: string,
-    title: string,
-    type: WorkBenchItemType.MARKDOWN | WorkBenchItemType.HTML | WorkBenchItemType.TOOL | WorkBenchItemType.CBSTOOL | WorkBenchItemType.THEANALIST;
-}
-
-export type workBenchItems = workBenchItem[];
-
-const initialWorkBenchItems: workBenchItems = [
-    // { id: nanoid(), 'type': WorkBenchItemType.MARKDOWN, 'title': 'MARKDOWN File' },
-    { id: nanoid(), 'type': WorkBenchItemType.TOOL, 'title': 'DATA Tool' },
-    { id: nanoid(), 'type': WorkBenchItemType.CBSTOOL, 'title': 'CBS Tool' },
-    { id: nanoid(), 'type': WorkBenchItemType.THEANALIST, 'title': 'FRIENDLY ANALIST' }
-];
-
-// An interface for our state
-export interface AppState {
-    userstatusBarMessagename: string;
-    activeWorkBenchIndex: string; 
-    workbenchItems: workBenchItem[];
-}
-
-export const initialAppState: AppState = {
-    userstatusBarMessagename: '',
-    activeWorkBenchIndex: initialWorkBenchItems[initialWorkBenchItems.length -1].id,
-    workbenchItems: initialWorkBenchItems,
-};
-
-//
-
-export type FlowNodeType = {
-    nodeID: string,
-    nodeClass: nodeClass,
-    name: string,
-    description: string,
-    type: string,
-    //properties: []
-}
-
 export enum nodeClass {
     SOURCENODE,
     EXPORTNODE
 }
 
-export type initFlowState ={
-    nodes: FlowNodeType[],
+export enum fieldtypes {
+    TEXT,
+    TEXTAREA,
+    FILEPATH,
+}
+
+interface IFlowNodeProperty {
+        name: string,
+        label?: string,
+        value?: string,
+        field:  fieldtypes,
+        readonly: boolean
+}
+
+type TFlowNodeProperty = {
+    name: string,
+    label?: string,
+    value?: string,
+    field:  fieldtypes,
+    readonly: boolean
+}
+
+export type TFlowNode = {
+    nodeID: string,
+    nodeClass: nodeClass,
+    name: string,
+    description: string,
+    type: unknown,
+    properties: TFlowNodeProperty[]
+}
+
+export interface IFlowNode {
+    nodeID: string,
+    nodeClass: nodeClass,
+    name: string,
+    description: string,
+    type: unknown,
+    properties: Array<IFlowNodeProperty>
+}
+
+export const url:IFlowNodeProperty = {
+        name: "url",
+        label: "URL",
+        field: fieldtypes.FILEPATH,
+        readonly: false
+}
+
+export const filename:IFlowNodeProperty = {
+    name: "filepath",
+    label: "FILEPATH",
+    field: fieldtypes.FILEPATH,
+    readonly: false
+}
+
+export enum connectorType {
+    EXCEL,
+    WORD,
+    ONEDRIVE,
+    SHAREPOINT,
+    ODATA4,
+    CSV,
+    XML,
+    JSON
+}
+
+export interface IConnector {
+    id: string,
+    name: string,
+    description: string,
+    type: connectorType,
+    logoimage: string,
+    properties:  IFlowNodeProperty[] 
+
+}
+
+export type initFlowState = {
+    nodes: TFlowNode[],
   }
 
-export const initialFlowState = 
+export const initialFlowState:initFlowState = 
     {
     nodes: [
         {
@@ -65,9 +93,9 @@ export const initialFlowState =
             name: 'CBS Table Observation',
             description: 'beschrijving',
             type: 'odata4',
-            // properties: {
-            //     url: ''
-            // }
+            properties: [
+                url
+            ]
         },
         {
             nodeID: nanoid(),
@@ -75,9 +103,9 @@ export const initialFlowState =
             name: 'SPSS Save',
             description: 'beschrijving',
             type: 'SPSS',
-            // properties: {
-            //     filename: 'c:\\temp\\spssfile.sav'
-            // }
+            properties: [
+                filename
+            ]
         },
     ]
 }

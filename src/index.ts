@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
 // import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('@electron/remote/main').initialize()
@@ -21,6 +21,7 @@ const createWindow = (): void => {
     width: 1400,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+    //  nodeIntegration: true 
     },
   });
 
@@ -34,7 +35,6 @@ const createWindow = (): void => {
     event.returnValue = null;
     mainWindow.webContents.inspectElement(e.x, e.y);
   });
-
 
 
   ipcMain.on('show-context-menu', (event, e) => {
@@ -54,6 +54,11 @@ const createWindow = (): void => {
    
     menu.popup({ window, x: xRound, y: yRound })
   })
+
+  ipcMain.handle('dialog', async (event, method, params) => {       
+    const result = await dialog[method](params);
+    return result;
+  });
 
 };
 
