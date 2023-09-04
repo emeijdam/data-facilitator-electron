@@ -11,10 +11,10 @@ import {
     Switch,
     Textarea
 } from "@fluentui/react-components";
-import { TFlowNode, fieldtypes } from "./flowState";
-import { useContext, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { FlowContext } from "./flowContext";
-import { FlowActionType } from "./flowActions";
+import { TFlowNode, fieldtypes } from "../datastreet.types";
+import { useContext, useRef, useState } from "react";
+import { FlowContext } from "../datastreet.context";
+import { TFlowActionType } from "../datastreet.actions";
 
 // declare global {
 //     interface Window {
@@ -76,10 +76,10 @@ interface PropertyEditorDialogProps {
     buttonsize?: "medium" | "small" | "large",
     opendialog: boolean,
     nodeid: string,
-    setEditor: (values: unknown) => void;
+    setPropertyEditorOpenId: (values: unknown) => void;
 }
 
-export const PropertyEditorDialogTrigger: React.FC<PropertyEditorDialogProps> = ({ buttonsize = "medium", nodeid, opendialog, setEditor }) => {
+export const PropertyEditorDialogTrigger: React.FC<PropertyEditorDialogProps> = ({ buttonsize = "medium", nodeid, opendialog, setPropertyEditorOpenId }) => {
     const { flowState, flowActionDispatch } = useContext(FlowContext);
     const [nodeState, setNode] = useState(getNode(nodeid, flowState.nodes));
     const [open, setOpen] = useState(opendialog);
@@ -108,9 +108,9 @@ export const PropertyEditorDialogTrigger: React.FC<PropertyEditorDialogProps> = 
 
     const handleUpdate = () => {
         console.log(nodeState)
-        flowActionDispatch({ type: FlowActionType.UPDATENODE, payload: nodeState })
+        flowActionDispatch({ type: TFlowActionType.UPDATENODE, payload: nodeState })
         setOpen(false)
-        setEditor("")
+        setPropertyEditorOpenId("")
     }
 
 
@@ -168,15 +168,7 @@ interface PropertyEditorProps {
 const PropertyEditor: React.FC<PropertyEditorProps> = ({ node, handleChange, handlePropertiesChange, buttonclick }) => {
     const classes = useStyles();
     const myRefname = useRef(null);
-
-    function triggerEvent(element, eventName) {
-        //   const event = document.createEvent("HTMLEvents");
-        const event = new Event(eventName);
-        myRefname.current.value = "hallo"
-        element.dispatchEvent(event);
-    }
-
-
+    
     const properties = node.properties.map((property) => {
         switch (property.field) {
             case fieldtypes.TEXT:

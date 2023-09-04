@@ -1,17 +1,17 @@
-import { flowActions, FlowActionType } from "./flowActions";
-import { initFlowState } from "./flowState";
+import { TFlowActions, TFlowActionType } from "./datastreet.actions";
+import { initFlowState } from "./datastreet.state";
 
-export function flowReducer(state: initFlowState, action: flowActions): initFlowState {
+export function flowReducer(state: initFlowState, action: TFlowActions): initFlowState {
     switch (action.type) {
-        case FlowActionType.ADDNODE:
+        case TFlowActionType.ADDNODE:
             //console.log(state);
             return { nodes: [...state.nodes, action.payload] }
-        case FlowActionType.UPDATENODE:
+        case TFlowActionType.UPDATENODE:
             return {
                 ...state,
                 nodes: [...state.nodes.filter( node => node.nodeID !== action.payload.nodeID), action.payload]
             }
-        case FlowActionType.DELETENODE:
+        case TFlowActionType.DELETENODE:
             //console.log(state)
             //console.log(action.payload)
             // console.log({ nodes: [...state.nodes.filter((node) => node.nodeID !== action.payload)] })

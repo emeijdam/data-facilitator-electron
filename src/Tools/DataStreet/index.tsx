@@ -1,13 +1,14 @@
-import { Button, makeStyles, shorthands } from "@fluentui/react-components";
+import { Button, makeStyles } from "@fluentui/react-components";
 import { useReducer, useState } from "react";
-import { ConnectorDialogTrigger } from "./ConnectorPicker";
+import { ConnectorDialogTrigger } from "./_components/ConnectorPicker";
 import Tabulate from "../_datahelpers/Tabulate";
-import { flowReducer } from "./flowReducer";
-import { initialFlowState, nodeClass } from "./flowState";
-import { FlowActionType } from "./flowActions";
-import { FlowContext } from "./flowContext";
-import { PropertyEditorDialogTrigger } from "./PropertyEditor";
+import { flowReducer } from "./datasteet.reducer";
+import { initialFlowState } from "./datastreet.state";
+import { TFlowActionType } from "./datastreet.actions";
+import { FlowContext } from "./datastreet.context";
+import { PropertyEditorDialogTrigger } from "./_components/PropertyEditor";
 
+import {nodeClass} from "./datastreet.types"
 
 const useStyles = makeStyles({
     dit: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 
 })
 
-const FlowEditor: React.FC = () => {
+const DataStreetDocumentEditor: React.FC = () => {
     const [flowState, flowActionDispatch] = useReducer(flowReducer, initialFlowState);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -60,7 +61,8 @@ const FlowEditor: React.FC = () => {
         }
     }
 
-    function setEditor(id: string) {
+    function setPropertyEditor(id: string) {
+        
         setAssetId(id)
     }
 
@@ -73,12 +75,12 @@ const FlowEditor: React.FC = () => {
                 <ul>
                     {flowState.nodes.filter(node => node.nodeClass === nodeClass.SOURCENODE).map(node => (
                         <li key={node.nodeID} className={classes.flexy}>{node.name}
-                            <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={assetId == node.nodeID} setEditor={setEditor} />
-                            <Button size="small" onClick={() => flowActionDispatch({ type: FlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button></li>
+                            <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={assetId == node.nodeID} setPropertyEditorOpenId={setPropertyEditor} />
+                            <Button size="small" onClick={() => flowActionDispatch({ type: TFlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button></li>
                     ))}
                 </ul>
 
-                <ConnectorDialogTrigger setEditor={setEditor} />
+                <ConnectorDialogTrigger setEditor={setPropertyEditor} />
                 <br></br>
 
                 <h1>Data Export Nodes</h1>
@@ -86,13 +88,13 @@ const FlowEditor: React.FC = () => {
                     {flowState.nodes.filter(node => node.nodeClass === nodeClass.EXPORTNODE).map(node => (
                         <li key={node.nodeID} className={classes.flexy}>
                             {node.name}
-                            <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={false} setEditor={setEditor} />
-                            <Button size="small" onClick={() => flowActionDispatch({ type: FlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button>
+                            <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={false} setPropertyEditorOpenId={setPropertyEditor} />
+                            <Button size="small" onClick={() => flowActionDispatch({ type: TFlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button>
                         </li>
                     ))}
                 </ul>
 
-                <ConnectorDialogTrigger setEditor={setEditor} />
+                <ConnectorDialogTrigger setEditor={setPropertyEditor} />
 
                 <br></br>
                 <h1>Flow options</h1>
@@ -109,4 +111,4 @@ const FlowEditor: React.FC = () => {
     );
 }
 
-export default FlowEditor;
+export default DataStreetDocumentEditor;

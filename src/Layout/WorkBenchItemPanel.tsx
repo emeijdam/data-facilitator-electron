@@ -1,10 +1,9 @@
 import { makeStyles, shorthands, tokens } from '@fluentui/react-components';
 import { workBenchItem, WorkBenchItemType } from './state'
 import MarkDown from '../Tools/MarkDown';
-import DataFacilitator from '../Tools/DataFacilitator/kanweg';
 import CBSTool from '../Tools/CBSConnector';
 import TheAnalist from '../Tools/TheAnalist';
-import FlowEditor from '../Tools/DataFacilitator';
+import DataStreetDocumentEditor from '../Tools/DataStreet';
 
 
 const useStyles = makeStyles({
@@ -42,7 +41,7 @@ const WorkBenchItemPanel = ({ workBenchItem, activeIndex }: WorkBenchItemPanelPr
       case WorkBenchItemType.HTML:
         return <div>some html</div>;
       case WorkBenchItemType.TOOL:
-        return <FlowEditor/>
+        return <DataStreetDocumentEditor/>
         //return <DataFacilitator />;
       case WorkBenchItemType.CBSTOOL:
           return <CBSTool />;

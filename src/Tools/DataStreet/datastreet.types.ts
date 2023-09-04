@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 export enum nodeClass {
     SOURCENODE,
     EXPORTNODE
@@ -45,6 +43,13 @@ export interface IFlowNode {
     properties: Array<IFlowNodeProperty>
 }
 
+export const cbsTableCode:IFlowNodeProperty = {
+    name: "cbsTableCode",
+    label: "cbsTableCode",
+    field: fieldtypes.TEXT,
+    readonly: false
+}
+
 export const url:IFlowNodeProperty = {
         name: "url",
         label: "URL",
@@ -67,7 +72,8 @@ export enum connectorType {
     ODATA4,
     CSV,
     XML,
-    JSON
+    JSON,
+    CBS
 }
 
 export interface IConnector {
@@ -80,32 +86,3 @@ export interface IConnector {
 
 }
 
-export type initFlowState = {
-    nodes: TFlowNode[],
-  }
-
-export const initialFlowState:initFlowState = 
-    {
-    nodes: [
-        {
-            nodeID: nanoid(),
-            nodeClass: nodeClass.SOURCENODE,
-            name: 'CBS Table Observation',
-            description: 'beschrijving',
-            type: 'odata4',
-            properties: [
-                url
-            ]
-        },
-        {
-            nodeID: nanoid(),
-            nodeClass: nodeClass.EXPORTNODE,
-            name: 'SPSS Save',
-            description: 'beschrijving',
-            type: 'SPSS',
-            properties: [
-                filename
-            ]
-        },
-    ]
-}

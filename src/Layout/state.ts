@@ -18,7 +18,7 @@ export type workBenchItems = workBenchItem[];
 
 const initialWorkBenchItems: workBenchItems = [
     { id: nanoid(), 'type': WorkBenchItemType.MARKDOWN, 'title': 'MARKDOWN File' },
-    { id: nanoid(), 'type': WorkBenchItemType.TOOL, 'title': 'DATA Flow Tool' },
+    { id: nanoid(), 'type': WorkBenchItemType.TOOL, 'title': 'DataStreet Document Editor' },
     { id: nanoid(), 'type': WorkBenchItemType.CBSTOOL, 'title': 'CBS Tool' },
     { id: nanoid(), 'type': WorkBenchItemType.THEANALIST, 'title': 'FRIENDLY ANALIST' }
 ];
