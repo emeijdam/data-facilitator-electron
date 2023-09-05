@@ -1,4 +1,4 @@
-import { Button, makeStyles } from "@fluentui/react-components";
+import { Button } from "@fluentui/react-components";
 import { useReducer, useState } from "react";
 import { ConnectorDialogTrigger } from "./_components/ConnectorPicker";
 import Tabulate from "../_datahelpers/Tabulate";
@@ -8,27 +8,12 @@ import { TFlowActionType } from "./datastreet.actions";
 import { FlowContext } from "./datastreet.context";
 import { PropertyEditorDialogTrigger } from "./_components/PropertyEditor";
 
-import {NodeClass} from "./datastreet.types"
+import { NodeClass } from "./datastreet.types"
+import { useStyles } from "./datastreet.styles";
 
-export { DataStreetDocumentEditor};
+export { DataStreetDocumentEditor };
 
-const useStyles = makeStyles({
-    dit: {
-        height: '100%;',
-        // ...shorthands.overflow('scroll'),
-    },
-    flexy: {
-        display: "flex",
-        alignItems: "center",
-        columnGap: "4px",
-    },
-  editor:{
-    height: '100%',
-    width: '100%',
-    boxSizing: 'border-box'
-  }
 
-})
 
 const DataStreetDocumentEditor: React.FC = () => {
     const [flowState, flowActionDispatch] = useReducer(flowReducer, initialFlowState);
@@ -70,17 +55,17 @@ const DataStreetDocumentEditor: React.FC = () => {
     }
 
     function setPropertyEditor(id: string) {
-        
+
         setAssetId(id)
     }
 
-    
+
 
     const classes = useStyles();
 
     return (
         <div id='doen' className={classes.dit} onClick={(e) => { if (e.detail === 2) setJsonView(value => !value) }}>
-            { !jsonView ? <FlowContext.Provider value={{ flowState, flowActionDispatch }}>
+            {!jsonView ? <FlowContext.Provider value={{ flowState, flowActionDispatch }}>
                 <h1>Data Source Nodes</h1>
                 <ul>
                     {flowState.nodes.filter(node => node.nodeClass === NodeClass.SOURCENODE).map(node => (
@@ -117,11 +102,11 @@ const DataStreetDocumentEditor: React.FC = () => {
                     </p>
                 </div>
             </FlowContext.Provider>
-:
-<div className={classes.editor} >
-   <pre>{JSON.stringify(flowState, null, 2)}</pre>
-  </div>
-}
+                :
+                <div className={classes.editor} >
+                    <pre>{JSON.stringify(flowState, null, 2)}</pre>
+                </div>
+            }
         </div>
     );
 }
