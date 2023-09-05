@@ -8,7 +8,7 @@ import { TFlowActionType } from "./datastreet.actions";
 import { FlowContext } from "./datastreet.context";
 import { PropertyEditorDialogTrigger } from "./_components/PropertyEditor";
 
-import {nodeClass} from "./datastreet.types"
+import {NodeClass} from "./datastreet.types"
 
 const useStyles = makeStyles({
     dit: {
@@ -73,7 +73,7 @@ const DataStreetDocumentEditor: React.FC = () => {
             <FlowContext.Provider value={{ flowState, flowActionDispatch }}>
                 <h1>Data Source Nodes</h1>
                 <ul>
-                    {flowState.nodes.filter(node => node.nodeClass === nodeClass.SOURCENODE).map(node => (
+                    {flowState.nodes.filter(node => node.nodeClass === NodeClass.SOURCENODE).map(node => (
                         <li key={node.nodeID} className={classes.flexy}>{node.name}
                             <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={assetId == node.nodeID} setPropertyEditorOpenId={setPropertyEditor} />
                             <Button size="small" onClick={() => flowActionDispatch({ type: TFlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button></li>
@@ -85,7 +85,7 @@ const DataStreetDocumentEditor: React.FC = () => {
 
                 <h1>Data Export Nodes</h1>
                 <ul>
-                    {flowState.nodes.filter(node => node.nodeClass === nodeClass.EXPORTNODE).map(node => (
+                    {flowState.nodes.filter(node => node.nodeClass === NodeClass.EXPORTNODE).map(node => (
                         <li key={node.nodeID} className={classes.flexy}>
                             {node.name}
                             <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={false} setPropertyEditorOpenId={setPropertyEditor} />

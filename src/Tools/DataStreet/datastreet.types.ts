@@ -1,19 +1,20 @@
-export enum nodeClass {
+export enum NodeClass {
     SOURCENODE,
     EXPORTNODE
 }
 
-export enum fieldtypes {
+export enum FieldTypes {
     TEXT,
     TEXTAREA,
     FILEPATH,
+    EXTERNAL_DIALOG
 }
 
 interface IFlowNodeProperty {
         name: string,
         label?: string,
         value?: string,
-        field:  fieldtypes,
+        field:  FieldTypes,
         readonly: boolean
 }
 
@@ -21,13 +22,13 @@ type TFlowNodeProperty = {
     name: string,
     label?: string,
     value?: string,
-    field:  fieldtypes,
+    field:  FieldTypes,
     readonly: boolean
 }
 
 export type TFlowNode = {
     nodeID: string,
-    nodeClass: nodeClass,
+    nodeClass: NodeClass,
     name: string,
     description: string,
     type: unknown,
@@ -36,7 +37,7 @@ export type TFlowNode = {
 
 export interface IFlowNode {
     nodeID: string,
-    nodeClass: nodeClass,
+    nodeClass: NodeClass,
     name: string,
     description: string,
     type: unknown,
@@ -44,23 +45,23 @@ export interface IFlowNode {
 }
 
 export const cbsTableCode:IFlowNodeProperty = {
-    name: "cbsTableCode",
+    name: "CBSTableCode",
     label: "cbsTableCode",
-    field: fieldtypes.TEXT,
+    field: FieldTypes.EXTERNAL_DIALOG,
     readonly: false
 }
 
 export const url:IFlowNodeProperty = {
         name: "url",
         label: "URL",
-        field: fieldtypes.FILEPATH,
+        field: FieldTypes.FILEPATH,
         readonly: false
 }
 
 export const filename:IFlowNodeProperty = {
     name: "filepath",
     label: "FILEPATH",
-    field: fieldtypes.FILEPATH,
+    field: FieldTypes.FILEPATH,
     readonly: false
 }
 
@@ -82,7 +83,6 @@ export interface IConnector {
     description: string,
     type: connectorType,
     logoimage: string,
-    properties:  IFlowNodeProperty[] 
-
+    properties:  IFlowNodeProperty[]
 }
 

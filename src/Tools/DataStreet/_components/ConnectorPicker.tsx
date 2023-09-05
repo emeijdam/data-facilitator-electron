@@ -3,7 +3,8 @@ import { useState, useContext } from "react";
 import { FlowContext } from "../datastreet.context";
 import { TFlowActionType } from "../datastreet.actions";
 import { nanoid } from "nanoid";
-import { IConnector, TFlowNode, cbsTableCode, connectorType, filename, nodeClass, url } from '../datastreet.types'
+import { IConnector, TFlowNode, cbsTableCode, connectorType, filename, NodeClass, url } from '../datastreet.types'
+import { initialConnectors } from "./connectors.state";
 
 const useStyles = makeStyles({
     flexy: {
@@ -41,74 +42,6 @@ const useStyles = makeStyles({
     }
 });
 
-const resolveAsset = (asset: string) => {
-    const ASSET_URL =
-        "https://res-1.cdn.office.net/files/fabric-cdn-prod_20221209.001/assets/brand-icons/product/svg/";
-    return `${ASSET_URL}${asset}`;
-};
-
-// const excelLogo = resolveAsset("excel_48x1.svg");
-// const wordLogo = resolveAsset("word_48x1.svg");
-// const powerpointLogo = resolveAsset("powerpoint_48x1.svg");
-// const onedriveLogo = resolveAsset("onedrive_48x1.svg");
-// const sharepointLogo = resolveAsset("sharepoint_48x1.svg");
-
-export const excelconn: IConnector = {
-    id: nanoid(),
-    name: 'Excel',
-    description: 'beschrijving',
-    type: connectorType.EXCEL,
-    logoimage: resolveAsset("excel_48x1.svg"),
-    properties: [
-        filename
-    ],
-}
-
-
-const initialConnectors: IConnector[] = [
-    excelconn,
-    {
-        id: nanoid(),
-        name: 'SharePoint',
-        description: 'beschrijving',
-        type: connectorType.ODATA4,
-        logoimage: resolveAsset("sharepoint_48x1.svg"),
-        properties: [
-            filename
-        ],
-    },
-    {
-        id: nanoid(),
-        name: 'CSV',
-        description: 'beschrijving',
-        type: connectorType.CSV,
-        logoimage: resolveAsset("excel_48x1.svg"),
-        properties: [
-            filename
-        ],
-    },
-    {
-        id: nanoid(),
-        name: 'OneDrive',
-        description: 'beschrijving',
-        type: connectorType.ONEDRIVE,
-        logoimage: resolveAsset("onedrive_48x1.svg"),
-        properties: [
-            url
-        ],
-    },
-    {
-        id: nanoid(),
-        name: 'CBS',
-        description: 'beschrijving',
-        type: connectorType.CBS,
-        logoimage: "",
-        properties: [
-            cbsTableCode
-        ],
-    },
-]
-
 interface ConnectorDialogTriggerProps {
     buttonsize?: "medium" | "small" | "large",
     setEditor: (values: unknown) => void;
@@ -130,7 +63,7 @@ export const ConnectorDialogTrigger: React.FC<ConnectorDialogTriggerProps> = ({ 
         }
         const node: TFlowNode = {
             nodeID: nanoid(),
-            nodeClass: nodeClass.SOURCENODE,
+            nodeClass: NodeClass.SOURCENODE,
             name: connector.name,
             description: connector.description,
             type: connector.type,

@@ -11,10 +11,11 @@ import {
     Switch,
     Textarea
 } from "@fluentui/react-components";
-import { TFlowNode, fieldtypes } from "../datastreet.types";
+import { TFlowNode, FieldTypes } from "../datastreet.types";
 import { useContext, useRef, useState } from "react";
 import { FlowContext } from "../datastreet.context";
 import { TFlowActionType } from "../datastreet.actions";
+import CBSConnector from "../../CBSConnector";
 
 // declare global {
 //     interface Window {
@@ -71,6 +72,11 @@ function getNode(nodeid: string, nodes): TFlowNode {
     return nodes.find(node => node.nodeID === nodeid);
 }
 
+enum dialog {
+    PropertyEditor,
+    CBSEditor
+}
+
 
 interface PropertyEditorDialogProps {
     buttonsize?: "medium" | "small" | "large",
@@ -83,6 +89,7 @@ export const PropertyEditorDialogTrigger: React.FC<PropertyEditorDialogProps> = 
     const { flowState, flowActionDispatch } = useContext(FlowContext);
     const [nodeState, setNode] = useState(getNode(nodeid, flowState.nodes));
     const [open, setOpen] = useState(opendialog);
+    const [openCBSTablePicker, setOpenCBSTablePicker] = useState(false);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -114,7 +121,7 @@ export const PropertyEditorDialogTrigger: React.FC<PropertyEditorDialogProps> = 
     }
 
 
-    const buttonclick = async (name: string) => {
+    const handleFilePicker = async (name: string) => {
         const dialogConfig = {
             //title: 'Select a file',
             //buttonLabel: 'This one will do',
@@ -134,6 +141,12 @@ export const PropertyEditorDialogTrigger: React.FC<PropertyEditorDialogProps> = 
         return filePaths
     }
 
+    const handleCBSTablePicker = async (name: string) => {
+        setOpenCBSTablePicker(true)
+
+        return "566789"
+    }
+
     return (
         <Dialog open={open} onOpenChange={(event, data) => setOpen(data.open)}>
             <DialogTrigger disableButtonEnhancement>
@@ -143,7 +156,10 @@ export const PropertyEditorDialogTrigger: React.FC<PropertyEditorDialogProps> = 
                 <DialogBody>
                     <DialogTitle>{nodeState.name}</DialogTitle>
                     <DialogContent>
-                        <PropertyEditor node={nodeState} handleChange={handleChange} handlePropertiesChange={handlePropertiesChange} buttonclick={buttonclick} />
+                        {!openCBSTablePicker ?
+                            <PropertyEditor node={nodeState} handleChange={handleChange} handlePropertiesChange={handlePropertiesChange} handleFilePicker={handleFilePicker} handleCBSTablePicker={handleCBSTablePicker} />
+                            : <CBSConnector />
+                        }
                     </DialogContent>
                     <DialogActions>
                         <DialogTrigger disableButtonEnhancement>
@@ -162,33 +178,41 @@ interface PropertyEditorProps {
     node: TFlowNode,
     handleChange: (values: unknown) => void,
     handlePropertiesChange: (values: unknown) => void,
-    buttonclick: (values: unknown) => void,
+    handleFilePicker: (values: unknown) => void,
+    handleCBSTablePicker: (values: unknown) => void,
 }
 
-const PropertyEditor: React.FC<PropertyEditorProps> = ({ node, handleChange, handlePropertiesChange, buttonclick }) => {
+const PropertyEditor: React.FC<PropertyEditorProps> = ({ node, handleChange, handlePropertiesChange, handleFilePicker, handleCBSTablePicker }) => {
     const classes = useStyles();
     const myRefname = useRef(null);
-    
+
     const properties = node.properties.map((property) => {
         switch (property.field) {
-            case fieldtypes.TEXT:
+            case FieldTypes.TEXT:
                 return <Field key={property.name} label={property.label}>
                     <Input name={property.name} defaultValue={property.value} onChange={handlePropertiesChange} />
                 </Field>
-            case fieldtypes.TEXTAREA:
+            case FieldTypes.TEXTAREA:
                 return <Field key={property.name} label={property.label}>
                     <Textarea name={property.name} defaultValue={property.value} onChange={handlePropertiesChange} />
                 </Field>
-            case fieldtypes.FILEPATH:
-
+            case FieldTypes.FILEPATH:
                 return <Field key={property.name} label={property.label} className={classes.flexy}>
                     <Input ref={myRefname} name={property.name} type='text' defaultValue={property.value ?? ''} value={property.value ?? ''} onChange={handlePropertiesChange} />
                     <Button onClick={async () => {
+                        myRefname.current.value = await handleFilePicker(property.name)
+                    }}>
+                        ...
+                    </Button>
+                </Field>
 
+            case FieldTypes.EXTERNAL_DIALOG:
 
-                        myRefname.current.value = await buttonclick(property.name)
-                        // console.log(myRefname.current.value)
-                        // triggerEvent(myRefname.current, "change");
+                return <Field key={property.name} label={property.label} className={classes.flexy}>
+                    ext
+                    <Input ref={myRefname} name={property.name} type='text' defaultValue={property.value ?? ''} value={property.value ?? ''} onChange={handlePropertiesChange} />
+                    <Button onClick={async () => {
+                        myRefname.current.value = await handleCBSTablePicker(property.name)
                     }}>
                         ...
                     </Button>
