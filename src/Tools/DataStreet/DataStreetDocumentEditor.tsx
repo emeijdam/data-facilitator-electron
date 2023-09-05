@@ -2,7 +2,7 @@ import { Button, makeStyles } from "@fluentui/react-components";
 import { useReducer, useState } from "react";
 import { ConnectorDialogTrigger } from "./_components/ConnectorPicker";
 import Tabulate from "../_datahelpers/Tabulate";
-import { flowReducer } from "./datasteet.reducer";
+import { flowReducer } from "./datastreet.reducer";
 import { initialFlowState } from "./datastreet.state";
 import { TFlowActionType } from "./datastreet.actions";
 import { FlowContext } from "./datastreet.context";
@@ -10,16 +10,23 @@ import { PropertyEditorDialogTrigger } from "./_components/PropertyEditor";
 
 import {NodeClass} from "./datastreet.types"
 
+export { DataStreetDocumentEditor};
+
 const useStyles = makeStyles({
     dit: {
-        //height: '100%;',
+        height: '100%;',
         // ...shorthands.overflow('scroll'),
     },
     flexy: {
         display: "flex",
         alignItems: "center",
         columnGap: "4px",
-    }
+    },
+  editor:{
+    height: '100%',
+    width: '100%',
+    boxSizing: 'border-box'
+  }
 
 })
 
@@ -28,6 +35,7 @@ const DataStreetDocumentEditor: React.FC = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [assetId, setAssetId] = useState("");
+    const [jsonView, setJsonView] = useState(false);
 
     const handleClick = () => {
         setLoading(true);
@@ -66,11 +74,13 @@ const DataStreetDocumentEditor: React.FC = () => {
         setAssetId(id)
     }
 
+    
+
     const classes = useStyles();
 
     return (
-        <div id='doen' className={classes.dit}>
-            <FlowContext.Provider value={{ flowState, flowActionDispatch }}>
+        <div id='doen' className={classes.dit} onClick={(e) => { if (e.detail === 2) setJsonView(value => !value) }}>
+            { !jsonView ? <FlowContext.Provider value={{ flowState, flowActionDispatch }}>
                 <h1>Data Source Nodes</h1>
                 <ul>
                     {flowState.nodes.filter(node => node.nodeClass === NodeClass.SOURCENODE).map(node => (
@@ -107,8 +117,11 @@ const DataStreetDocumentEditor: React.FC = () => {
                     </p>
                 </div>
             </FlowContext.Provider>
+:
+<div className={classes.editor} >
+   <pre>{JSON.stringify(flowState, null, 2)}</pre>
+  </div>
+}
         </div>
     );
 }
-
-export default DataStreetDocumentEditor;

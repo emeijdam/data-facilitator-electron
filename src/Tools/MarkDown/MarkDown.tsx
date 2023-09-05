@@ -3,9 +3,19 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Link, makeStyles} from "@fluentui/react-components";
 
+export  {MarkDown};
+
 const useStyles = makeStyles({
   root: {
-    textAlign: 'left'
+    textAlign: 'left',
+    height: '100%',
+    width: '100%'
+  },
+  editor:{
+    resize: 'none',
+    height: '100%',
+    width: '100%',
+    boxSizing: 'border-box'
   }
 });
 
@@ -16,6 +26,7 @@ type AppProps = {
 const MarkDown:React.FC<AppProps> = ({file}) => {
   const classes = useStyles();
   const [markdown, setMarkdown] = useState("");
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
 
@@ -24,8 +35,15 @@ const MarkDown:React.FC<AppProps> = ({file}) => {
       .then((text) => setMarkdown(text));
   }, [file]);
 
+  function doubleClick(){
+    setEdit(value => !value)
+    console.log(edit)
+  }
+
   return (
-    <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkGfm]}  className={classes.root} components={{
+    <span onClick={(e) => { if (e.detail === 2) doubleClick() }}>
+
+    { !edit ? <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkGfm]}  className={classes.root}  components={{
       a: props => {
           return  (
               <Link href={props.href} target="_blank">{props.children}</Link> // All other links
@@ -34,7 +52,13 @@ const MarkDown:React.FC<AppProps> = ({file}) => {
   }}>
     {markdown} 
   </ReactMarkdown>
+
+
+: 
+  <div className={classes.root}>
+    <textarea className={classes.editor} value={markdown} onChange={(e) => setMarkdown(e.target.value)}></textarea >
+  </div>
+}
+  </span>
   )
 }
-
-export default MarkDown;
