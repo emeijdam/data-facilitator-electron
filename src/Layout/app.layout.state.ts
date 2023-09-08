@@ -32,6 +32,6 @@ export interface AppState {
 
 export const initialAppState: AppState = {
     userstatusBarMessagename: '',
-    activeWorkBenchIndex: initialWorkBenchItems[0].id,
+    activeWorkBenchIndex: initialWorkBenchItems[1].id,
     workbenchItems: initialWorkBenchItems,
 };
