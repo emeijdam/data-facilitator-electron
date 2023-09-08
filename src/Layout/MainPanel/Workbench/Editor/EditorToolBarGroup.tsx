@@ -3,8 +3,8 @@ import { makeStyles, tokens, ToolbarButton,ToolbarGroup, shorthands, Toolbar} fr
 import React, { useContext } from 'react';
 import { MoreHorizontal24Filled,} from "@fluentui/react-icons";
 import { DataTrending16Filled, Autosum16Filled, Dismiss16Regular} from "@fluentui/react-icons";
-import { AppContext } from "../../../context";
-import { ActionType } from "../../../actions";
+import { AppContext } from "../../../app.layout.context";
+import { ActionType } from "../../../app.layout.actions";
 
 const useStyles = makeStyles({
   toolbar: {

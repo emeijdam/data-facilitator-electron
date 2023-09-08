@@ -3,7 +3,7 @@ import { Fragment, useState } from "react";
 import CBSCardGallery from "./CBSCardGallery";
 import Tabulate from "../_datahelpers/Tabulate";
 
-
+export  { CBSTool };
 // const initialData = {
 //   data: [],
 //   tableData: [],
@@ -118,5 +118,5 @@ const CBSTool: React.FC = () => {
   )
 }
 
-export default CBSTool;
+
 

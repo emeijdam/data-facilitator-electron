@@ -1,6 +1,5 @@
-import { createContext } from 'react';
-import { workBenchItem } from './state'
-import { Dispatch } from "react";
+import { createContext, Dispatch } from 'react';
+import { workBenchItem } from './app.layout.state'
 
 type Action = { type: 'addDoc' } | { type: 'deleteDoc' }
 

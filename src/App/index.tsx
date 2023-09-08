@@ -1,6 +1,6 @@
 import React, { useReducer }from 'react';
 import './App.css';
-import { AppLayoutGrid } from '../Layout'
+import { AppLayoutGrid } from '../Layout/AppLayoutGrid'
 import { FluentProvider } from '@fluentui/react-components';
 import { ThemeContext } from './ThemeContext';
 import { themeReducer } from './ThemeReducer';

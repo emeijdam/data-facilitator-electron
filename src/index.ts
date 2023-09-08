@@ -19,6 +19,7 @@ const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     height: 800,
     width: 1400,
+    title: 'Data Streets',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     //  nodeIntegration: true 

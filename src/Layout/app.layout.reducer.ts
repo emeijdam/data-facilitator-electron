@@ -1,5 +1,5 @@
-import { AppActions, ActionType } from "./actions";
-import { AppState } from "./state";
+import { AppActions, ActionType } from "./app.layout.actions";
+import { AppState } from "./app.layout.state";
 import { nanoid } from 'nanoid';
 
 export function appReducer(state: AppState, action: AppActions) {

@@ -1,7 +1,7 @@
 import { makeStyles, tokens } from '@fluentui/react-components';
 import Document from '../../../WorkBenchItemPanel'
 import { useContext } from 'react';
-import { AppContext } from '../../../context';
+import { AppContext } from '../../../app.layout.context';
 import EditorToolBarGroup from './EditorToolBarGroup';
 
 const editorStyles = makeStyles({

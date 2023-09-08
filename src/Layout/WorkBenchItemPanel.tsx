@@ -1,9 +1,6 @@
 import { makeStyles, shorthands, tokens } from '@fluentui/react-components';
-import { workBenchItem, WorkBenchItemType } from './state'
-import { MarkDown } from '../Tools/MarkDown/index';
-import CBSTool from '../Tools/CBSConnector';
-import TheAnalist from '../Tools/TheAnalist';
-import {DataStreetDocumentEditor} from '../Tools/DataStreet/index';
+import { workBenchItem, WorkBenchItemType } from './app.layout.state'
+import {DataStreetDocumentEditor, CBSTool, MarkDown} from '../Tools/index';
 
 
 const useStyles = makeStyles({

@@ -1,13 +1,16 @@
-import './layout.css';
+import './app.layout.css';
 import SideToolBarPanel from './MainPanel/SideToolBarPanel'
 import WorkbenchPanel from './MainPanel/Workbench/WorkbenchPanel';
 import StatusBar from './MainPanel/StatusBar';
 import { useState, useReducer, useEffect } from 'react';
 import { ToolbarProps } from "@fluentui/react-components";
-import { initialAppState} from './state'
-import { ActionType} from './actions'
-import { appReducer } from './reducer';
-import { AppContext } from './context';
+import { initialAppState} from './app.layout.state'
+import { ActionType} from './app.layout.actions'
+import { appReducer } from './app.layout.reducer';
+import { AppContext } from './app.layout.context';
+
+
+export { AppLayoutGrid };
 
 const AppLayoutGrid: React.FC = () => {
   const [state, dispatch] = useReducer(appReducer, initialAppState);
@@ -44,7 +47,7 @@ const AppLayoutGrid: React.FC = () => {
     </div>
   );
 };
-export { AppLayoutGrid };
+
 
 type gridItemProps = {
   name: string,

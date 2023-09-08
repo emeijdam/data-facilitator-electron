@@ -2,9 +2,9 @@ import { makeStyles, tokens, Button ,  Tree, TreeItem, TreeItemLayout} from '@fl
 import PanelToolbarPrimarySideBar from './PanelToolbarPrimarySideBar'
 //import { Tree, TreeItem, TreeItemLayout } from "@fluentui/react-components/unstable";
 import { useContext } from "react";
-import { AppContext } from '../../../context';
-import { ActionType } from '../../../actions';
-import { WorkBenchItemType } from '../../../state';
+import { AppContext } from '../../../app.layout.context';
+import { ActionType } from '../../../app.layout.actions';
+import { WorkBenchItemType } from '../../../app.layout.state';
 
 const primarySideBarStyles = makeStyles({
   root: {

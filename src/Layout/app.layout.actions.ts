@@ -1,4 +1,4 @@
-import { workBenchItem } from "./state";
+import { workBenchItem } from "./app.layout.state";
 
 export enum ActionType {
     SetStatusBarMessage,
