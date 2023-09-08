@@ -30,9 +30,6 @@ type workbenchPanelProps = {
     grid: React.FC
 };
 
-
-  
-
 const WorkbenchPanel: React.FC<workbenchPanelProps> = ({ PrimarySideBarOn }) => {
     const classes = useStyles();
     const merged = mergeClasses(classes.root, PrimarySideBarOn ? classes.panel : classes.paneloff)

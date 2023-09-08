@@ -18,13 +18,11 @@ const AppLayoutGrid: React.FC = () => {
 
   const onChange: ToolbarProps["onCheckedValueChange"] = (e, { name, checkedItems }) => {
     dispatch({ type: ActionType.SetStatusBarMessage, payload: 'View changed: ' + checkedItems[0] })
-    console.log(checkedItems)
+    //console.log(checkedItems)
     setCheckedValues((s) => {
       return s ? { ...s, [name]: checkedItems } : { [name]: checkedItems };
     });
   };
-
- 
 
   useEffect(() => {
     //if (state.activeWorkBenchIndex === '') {state.activeWorkBenchIndex = state.workbenchItems.length !== 0 ? state.workbenchItems[state.workbenchItems.length -1].id : ''}
