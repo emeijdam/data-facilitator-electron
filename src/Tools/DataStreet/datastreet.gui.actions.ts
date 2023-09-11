@@ -6,6 +6,7 @@ export enum TDataStreetGuiActionType {
     TOGGLEJSONVIEW,
     TOGGLELOADING,
     SETSELECTEDASSET,
+    SHOWDIALOGNEW
 }
 
 type TASSET =  IConnector | IFlowNode
@@ -14,5 +15,6 @@ type TDismissDialog = { type: TDataStreetGuiActionType.DISMISSDIALOG; payload: b
 type TToggleJsonView = { type: TDataStreetGuiActionType.TOGGLEJSONVIEW}
 type TTOGGLELOADING = { type: TDataStreetGuiActionType.TOGGLELOADING}
 type TSETCONNECTOR = { type: TDataStreetGuiActionType.SETSELECTEDASSET; payload: TASSET}
+type TSHOWDIALOGNEW = { type: TDataStreetGuiActionType.SHOWDIALOGNEW; payload: boolean}
 
-export type TDataStreetGuiActions = TDisplayDialog | TDismissDialog | TToggleJsonView | TTOGGLELOADING | TSETCONNECTOR;
+export type TDataStreetGuiActions = TDisplayDialog | TDismissDialog | TToggleJsonView | TTOGGLELOADING | TSETCONNECTOR | TSHOWDIALOGNEW;

@@ -15,6 +15,7 @@ https://react.dev/learn
 
 https://react.fluentui.dev/?path=/docs/concepts-developer-icons-icons-catalog--page
 
+https://stackoverflow.com/questions/65609978/how-to-properly-pass-usereducer-actions-down-to-children-without-causing-unneces
 
 ### TypeScript
 

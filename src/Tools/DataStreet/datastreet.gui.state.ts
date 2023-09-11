@@ -4,7 +4,8 @@ export interface IDataStreetGuiState {
     displayAssetDialog: string,
     showJSONStreet: boolean,
     loading: boolean,
-    selectedAsset: IConnector | TFlowNode
+    selectedAsset: IConnector | TFlowNode,
+    newdialog: boolean
 }
 
 
@@ -12,12 +13,14 @@ export type TDataStreetGuiState = {
     displayAssetDialog: string,
     showJSONStreet: boolean,
     loading: boolean,
-    selectedAsset: IConnector | TFlowNode
+    selectedAsset: IConnector | TFlowNode,
+    newdialog: boolean
 }
 
 export const initialDataStreetGuiState:TDataStreetGuiState = {
     displayAssetDialog: "",
     showJSONStreet: false,
     loading: false,
-    selectedAsset: null
+    selectedAsset: null,
+    newdialog: false
 }

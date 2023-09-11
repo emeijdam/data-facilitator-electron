@@ -1,4 +1,4 @@
-import { Button } from "@fluentui/react-components";
+import { Button, useRestoreFocusTarget} from "@fluentui/react-components";
 import { useReducer, useState } from "react";
 import Tabulate from "../_datahelpers/Tabulate";
 import { flowReducer } from "./datastreet.reducer";
@@ -12,7 +12,7 @@ import { useStyles } from "./datastreet.styles";
 import { dataStreetGuiReducer } from "./datastreet.gui.reducer";
 import { initialDataStreetGuiState } from "./datastreet.gui.state";
 import { TDataStreetGuiActionType } from "./datastreet.gui.actions";
-import { ConnectorDialogTrigger } from "./_components/DiaStuff";
+import { AppDialog, ConnectorDialogTrigger } from "./_components/DiaStuff";
 import { nanoid } from "nanoid";
 import { DataStreetGuiContext } from "./datastreet.gui.context";
 
@@ -22,6 +22,7 @@ const DataStreetDocumentEditor: React.FC = () => {
     const [flowState, flowActionDispatch] = useReducer(flowReducer, initialFlowState);
     const [dataStreetGuiState, dataStreetGuiActionDispatch] = useReducer(dataStreetGuiReducer, initialDataStreetGuiState);
     const [data, setData] = useState(null);
+    const restoreFocusTargetAttribute = useRestoreFocusTarget();
 
     const classes = useStyles();
 
@@ -90,6 +91,9 @@ const DataStreetDocumentEditor: React.FC = () => {
                 </ul>
                 <DataStreetGuiContext.Provider value={{ dataStreetGuiState, dataStreetGuiActionDispatch }}>
                     <ConnectorDialogTrigger handleSave={handleSaveAsset} />
+               
+                <Button  {...restoreFocusTargetAttribute} onClick={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: true })}>dia</Button>
+                <AppDialog />
                 </DataStreetGuiContext.Provider>
                 <br></br>
 
@@ -122,6 +126,7 @@ const DataStreetDocumentEditor: React.FC = () => {
                     <pre>{JSON.stringify(flowState, null, 2)}</pre>
                 </div>
             }
+          
         </div>
     );
 }
