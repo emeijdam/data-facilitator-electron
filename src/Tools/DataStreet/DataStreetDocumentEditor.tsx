@@ -26,6 +26,11 @@ const DataStreetDocumentEditor: React.FC = () => {
 
     const classes = useStyles();
 
+    // useEffect(() => {
+    //     window.electronAPI.setTitle('hoi')
+
+    // },[])
+
     const handleClick = () => {
         dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.TOGGLELOADING })
         // ?$filter=WijkenEnBuurten eq \'GM0363\'

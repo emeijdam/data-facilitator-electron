@@ -26,6 +26,10 @@ import { contextBridge } from "electron";
       });
 
       contextBridge.exposeInMainWorld('electronAPI', {
-        loadPreferences: () => ipcRenderer.invoke('load-prefs')
+        loadPreferences: () => ipcRenderer.invoke('load-prefs'),
+        setTitle: (title) => ipcRenderer.send('set-title', title),
+        getMarkdownFile: (filepath) => ipcRenderer.invoke('get-md-file', filepath)
       })
+
+      
   };

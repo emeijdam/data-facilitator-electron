@@ -28,12 +28,22 @@ const MarkDown:React.FC<AppProps> = ({file}) => {
   const [markdown, setMarkdown] = useState("");
   const [edit, setEdit] = useState(false);
 
+  // useEffect(() => {
+
+  //   fetch(file)
+  //     .then((res) => res.text())
+  //     .then((text) => setMarkdown(text));
+  // }, [file]);
+
   useEffect(() => {
 
-    fetch(file)
-      .then((res) => res.text())
-      .then((text) => setMarkdown(text));
-  }, [file]);
+    const fetchData = async () => {
+      const result = await  window.electronAPI.getMarkdownFile('//Users//emeijdam//dev//data-facilitator-electron//src/Tools//MarkDown//README.md')
+      setMarkdown(result.payload)
+    }
+
+    fetchData().catch(console.error);
+},[])
 
   function doubleClick(){
     setEdit(value => !value)

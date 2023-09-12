@@ -1,4 +1,7 @@
 import { app, BrowserWindow, dialog, ipcMain, Menu, shell } from 'electron';
+//var fs = require("fs")
+//import * as fs from 'fs'
+import { promises as fs } from "fs";
 // import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('@electron/remote/main').initialize()
@@ -22,9 +25,12 @@ const createWindow = (): void => {
     title: 'Data Streets',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-    //  nodeIntegration: true 
+      //  nodeIntegration: true 
     },
   });
+
+  // and load the index.html of the app.
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   //todo: add ctrl
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -32,13 +38,10 @@ const createWindow = (): void => {
     return { action: "deny" }; // Prevent the app from opening the URL.
   })
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
   // Open the DevTools.
- // mainWindow.webContents.openDevTools();
-  
-  ipcMain.addListener('mouse', function(event, e) {
+  // mainWindow.webContents.openDevTools();
+
+  ipcMain.addListener('mouse', function (event, e) {
     event.returnValue = null;
     mainWindow.webContents.inspectElement(e.x, e.y);
   });
@@ -47,31 +50,48 @@ const createWindow = (): void => {
   ipcMain.on('show-context-menu', (event, e) => {
     const xRound = Math.round(e.x);
     const yRound = Math.round(e.y);
-  
-    const template:Electron.MenuItemConstructorOptions[] = [
+
+    const template: Electron.MenuItemConstructorOptions[] = [
       {
         label: 'Inspect Element',
-        click: () => { event.sender.send('context-menu-command', 'menu-item-1', {x: xRound, y: yRound}) }
+        click: () => { event.sender.send('context-menu-command', 'menu-item-1', { x: xRound, y: yRound }) }
       },
       { type: 'separator' },
       { label: 'Menu Item 2', type: 'checkbox', checked: true }
     ]
     const menu = Menu.buildFromTemplate(template)
     const window = BrowserWindow.fromWebContents(event.sender);
-   
+
     menu.popup({ window, x: xRound, y: yRound })
   })
 
-  ipcMain.handle('dialog', async (event, method, params) => {       
+  ipcMain.handle('dialog', async (event, method, params) => {
     const result = await dialog[method](params);
     return result;
   });
 
+  // testing 
+  ipcMain.on('set-title', (event, title) => {
+    const webContents = event.sender
+    const win = BrowserWindow.fromWebContents(webContents)
+    win.setTitle(title)
+  })
+
+  ipcMain.handle('get-md-file',async (event, filepath: string) => {
+    //console.log(filepath)
+    const test = await fs.readFile(filepath, 'utf8')
+    console.log(test.toString())
+    return {filename: 'testme', payload: test.toString()}
+    
+  }
+)
+
+
 };
 
-ipcMain.addListener('mouse', function(event, e) {
+ipcMain.addListener('mouse', function (event, e) {
   event.returnValue = null;
- // mainWindow.webContents.inspectElement(e.x, e.y);
+  // mainWindow.webContents.inspectElement(e.x, e.y);
 });
 
 // This method will be called when Electron has finished

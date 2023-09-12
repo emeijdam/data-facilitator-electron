@@ -2,6 +2,8 @@
 
 export interface IElectronAPI {
   loadPreferences: () => Promise<void>,
+  setTitle: (title) => Promise<void>,
+  getMarkdownFile: (filepath) => Promise<{filename:string, payload:string}>
 }
 
 export interface IelectronD {
