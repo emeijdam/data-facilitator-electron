@@ -1,9 +1,9 @@
-import { useState, useEffect }from 'react';
+import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Link, makeStyles} from "@fluentui/react-components";
+import { Link, makeStyles } from "@fluentui/react-components";
 
-export  {MarkDown};
+export { MarkDown };
 
 const useStyles = makeStyles({
   root: {
@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     height: '100%',
     width: '100%'
   },
-  editor:{
+  editor: {
     resize: 'none',
     height: '100%',
     width: '100%',
@@ -20,32 +20,25 @@ const useStyles = makeStyles({
 });
 
 type AppProps = {
-    file: string;
-  };
+  file: string;
+};
 
-const MarkDown:React.FC<AppProps> = ({file}) => {
+const MarkDown: React.FC<AppProps> = ({ file }) => {
   const classes = useStyles();
   const [markdown, setMarkdown] = useState("");
   const [edit, setEdit] = useState(false);
 
-  // useEffect(() => {
-
-  //   fetch(file)
-  //     .then((res) => res.text())
-  //     .then((text) => setMarkdown(text));
-  // }, [file]);
-
   useEffect(() => {
 
     const fetchData = async () => {
-      const result = await  window.electronAPI.getMarkdownFile('//Users//emeijdam//dev//data-facilitator-electron//src/Tools//MarkDown//README.md')
+      const result = await window.electronAPI.getMarkdownFile('//Users//emeijdam//dev//data-facilitator-electron//src/Tools//MarkDown//README.md')
       setMarkdown(result.payload)
     }
 
     fetchData().catch(console.error);
-},[])
+  }, [])
 
-  function doubleClick(){
+  function doubleClick() {
     setEdit(value => !value)
     console.log(edit)
   }
@@ -53,22 +46,22 @@ const MarkDown:React.FC<AppProps> = ({file}) => {
   return (
     <span onClick={(e) => { if (e.detail === 2) doubleClick() }}>
 
-    { !edit ? <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkGfm]}  className={classes.root}  components={{
-      a: props => {
-          return  (
-              <Link href={props.href} target="_blank">{props.children}</Link> // All other links
+      {!edit ? <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkGfm]} className={classes.root} components={{
+        a: props => {
+          return (
+            <Link href={props.href} target="_blank">{props.children}</Link> // All other links
           )
+        }
+      }}>
+        {markdown}
+      </ReactMarkdown>
+
+
+        :
+        <div className={classes.root}>
+          <textarea className={classes.editor} value={markdown} onChange={(e) => setMarkdown(e.target.value)}></textarea >
+        </div>
       }
-  }}>
-    {markdown} 
-  </ReactMarkdown>
-
-
-: 
-  <div className={classes.root}>
-    <textarea className={classes.editor} value={markdown} onChange={(e) => setMarkdown(e.target.value)}></textarea >
-  </div>
-}
-  </span>
+    </span>
   )
 }
