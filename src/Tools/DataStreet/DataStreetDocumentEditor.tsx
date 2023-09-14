@@ -5,16 +5,19 @@ import { flowReducer } from "./datastreet.reducer";
 import { initialFlowState } from "./datastreet.state";
 import { TFlowActionType } from "./datastreet.actions";
 import { FlowContext } from "./datastreet.context";
-import { PropertyEditorDialogTrigger } from "./_components/PropertyEditor";
+import PropertyEditor, { PropertyEditorDialogTrigger } from "./_components/PropertyEditor";
 
 import { IConnector, NodeClass, TFlowNode } from "./datastreet.types"
 import { useStyles } from "./datastreet.styles";
 import { dataStreetGuiReducer } from "./datastreet.gui.reducer";
 import { initialDataStreetGuiState } from "./datastreet.gui.state";
 import { TDataStreetGuiActionType } from "./datastreet.gui.actions";
-import { AppDialog, ConnectorDialogTrigger } from "./_components/DiaStuff";
+import { ConnectorDialogTrigger } from "./_components/DiaStuff";
 import { nanoid } from "nanoid";
 import { DataStreetGuiContext } from "./datastreet.gui.context";
+import { MyAppDialog } from "./_components/AppDialog";
+import { ConnectorPicker } from "./_components/ConnectorPicker";
+import { FCTEST, MyPropertyEditor, MyPropertyEditorProps, huh } from "./MyPropEdit";
 
 export { DataStreetDocumentEditor };
 
@@ -63,23 +66,46 @@ const DataStreetDocumentEditor: React.FC = () => {
         }
     }
 
-    const handleSaveAsset = () => {
+    // saveConnector and close
+    const handleSaveAsset = (item) => {
         //  ataStreetGuiState.selectedAsset  = cbsconnector
         // display cbs gui
-
-        if (dataStreetGuiState.selectedAsset !== null) {
+        console.log('save!', item)
+        if (item !== null) {
             const node: TFlowNode = {
                 nodeID: nanoid(),
                 nodeClass: NodeClass.SOURCENODE,
-                name: dataStreetGuiState.selectedAsset.name,
-                description: dataStreetGuiState.selectedAsset.description,
-                type: dataStreetGuiState.selectedAsset.type,
-                properties: dataStreetGuiState.selectedAsset.properties
+                name: item.name,
+                description: item.description,
+                type: item.type,
+                properties: item.properties
             }
 
             flowActionDispatch({ type: TFlowActionType.ADDNODE, payload: node })
-            dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOG, payload: node.nodeID })
+           
+           // dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOG, payload: node.nodeID })
         }
+        dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: false, displayComponent: null, saveButton: null} })
+        console.log('close save!')
+    }
+
+    function simple(node){
+        console.log('simple', node)
+    }
+   
+    const onEdit = (snode: TFlowNode) => {
+
+        const propy: MyPropertyEditorProps = {
+            node: snode
+        }
+        
+        const dialogp = {
+            open: true,
+            displayComponent: FCTEST, 
+            saveButton: simple
+        }
+
+        dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: true, displayComponent: <FCTEST mystring="test"/>, saveButton: simple}})
     }
 
     return (
@@ -90,15 +116,16 @@ const DataStreetDocumentEditor: React.FC = () => {
                 <ul>
                     {flowState.nodes.filter(node => node.nodeClass === NodeClass.SOURCENODE).map(node => (
                         <li key={node.nodeID} className={classes.flexy}>{node.name}
-                            <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={dataStreetGuiState.displayAssetDialog == node.nodeID} setPropertyEditorOpenId={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOG, payload: node.nodeID })} />
+                            {/* <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={dataStreetGuiState.displayAssetDialog == node.nodeID} setPropertyEditorOpenId={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOG, payload: node.nodeID })} /> */}
+                            <Button onClick={()=> dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: true, displayComponent: <MyPropertyEditor node={node}/>, saveButton: simple}})}>test</Button>
                             <Button size="small" onClick={() => flowActionDispatch({ type: TFlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button></li>
                     ))}
                 </ul>
                 <DataStreetGuiContext.Provider value={{ dataStreetGuiState, dataStreetGuiActionDispatch }}>
-                    <ConnectorDialogTrigger handleSave={handleSaveAsset} />
+                    {/* <ConnectorDialogTrigger handleSave={handleSaveAsset} /> */}
                
-                <Button  {...restoreFocusTargetAttribute} onClick={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: true })}>dia</Button>
-                <AppDialog />
+                <Button  {...restoreFocusTargetAttribute} onClick={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: true, displayComponent: <ConnectorPicker/>, saveButton: handleSaveAsset} })}>dialogtest conn</Button>
+                <MyAppDialog/>
                 </DataStreetGuiContext.Provider>
                 <br></br>
 
@@ -107,7 +134,7 @@ const DataStreetDocumentEditor: React.FC = () => {
                     {flowState.nodes.filter(node => node.nodeClass === NodeClass.EXPORTNODE).map(node => (
                         <li key={node.nodeID} className={classes.flexy}>
                             {node.name}
-                            <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={false} setPropertyEditorOpenId={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.DISMISSDIALOG, payload: false })} />
+                            {/* <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={false} setPropertyEditorOpenId={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.DISMISSDIALOG, payload: false })} /> */}
                             <Button size="small" onClick={() => flowActionDispatch({ type: TFlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button>
                         </li>
                     ))}

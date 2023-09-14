@@ -1,3 +1,4 @@
+import { IDialogState } from "./datastreet.gui.state";
 import { IConnector, IFlowNode } from "./datastreet.types";
 
 export enum TDataStreetGuiActionType {
@@ -15,6 +16,6 @@ type TDismissDialog = { type: TDataStreetGuiActionType.DISMISSDIALOG; payload: b
 type TToggleJsonView = { type: TDataStreetGuiActionType.TOGGLEJSONVIEW}
 type TTOGGLELOADING = { type: TDataStreetGuiActionType.TOGGLELOADING}
 type TSETCONNECTOR = { type: TDataStreetGuiActionType.SETSELECTEDASSET; payload: TASSET}
-type TSHOWDIALOGNEW = { type: TDataStreetGuiActionType.SHOWDIALOGNEW; payload: boolean}
+type TSHOWDIALOGNEW = { type: TDataStreetGuiActionType.SHOWDIALOGNEW; payload: IDialogState}
 
 export type TDataStreetGuiActions = TDisplayDialog | TDismissDialog | TToggleJsonView | TTOGGLELOADING | TSETCONNECTOR | TSHOWDIALOGNEW;

@@ -19,6 +19,8 @@ https://stackoverflow.com/questions/65609978/how-to-properly-pass-usereducer-act
 
 ### TypeScript
 
+https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/basic_type_example/
+
 https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context
 
 https://github.com/Lemoncode/react-typescript-samples/tree/master/hooks

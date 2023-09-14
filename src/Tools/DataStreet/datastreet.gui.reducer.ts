@@ -13,10 +13,13 @@ export function dataStreetGuiReducer(state: IDataStreetGuiState, action: TDataSt
         case TDataStreetGuiActionType.TOGGLELOADING:
             return { ...state, loading: !state.loading }
         case TDataStreetGuiActionType.SETSELECTEDASSET:
+            console.log('selected asset')
+            console.log({...state, selectedAsset: action.payload})
             return { ...state, selectedAsset: action.payload }
         case TDataStreetGuiActionType.SHOWDIALOGNEW:
-            console.log({...state, newdialog:action.payload})
-            return { ...state, newdialog:action.payload}
+            console.log('showdialog new')
+            console.log({...state, dialogstate:action.payload})
+            return { ...state, dialogstate:action.payload}
         default:
             throw new Error();
     }
