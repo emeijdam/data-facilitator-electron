@@ -1,11 +1,20 @@
+import { ReactElement } from "react"
+import { PropertyEditorProps } from "./_components/PropertyEditor"
 import { IConnector, TFlowNode } from "./datastreet.types"
+
+
+export interface IDialogState{
+        open: boolean,
+        saveButton: (values: unknown) => void | null,
+        displayComponent: React.ReactElement
+}
 
 export interface IDataStreetGuiState {
     displayAssetDialog: string,
     showJSONStreet: boolean,
     loading: boolean,
     selectedAsset: IConnector | TFlowNode,
-    newdialog: boolean
+    dialogstate: IDialogState
 }
 
 
@@ -14,7 +23,7 @@ export type TDataStreetGuiState = {
     showJSONStreet: boolean,
     loading: boolean,
     selectedAsset: IConnector | TFlowNode,
-    newdialog: boolean
+    dialogstate: IDialogState
 }
 
 export const initialDataStreetGuiState:TDataStreetGuiState = {
@@ -22,5 +31,9 @@ export const initialDataStreetGuiState:TDataStreetGuiState = {
     showJSONStreet: false,
     loading: false,
     selectedAsset: null,
-    newdialog: false
+    dialogstate: {
+        open: false,
+        saveButton: null,
+        displayComponent: null
+    }
 }

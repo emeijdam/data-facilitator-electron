@@ -14,7 +14,7 @@ export { ConnectorPicker};
 
 // https://developer.microsoft.com/en-us/fluentui#/styles/web/m365-product-icons
 interface ConnectorPickerProps {
-    handleSave: (values: unknown) => void
+    handleSave?: (values: unknown) => void
 }
 
 const ConnectorPicker: React.FC<ConnectorPickerProps> = ({ handleSave}) => {
@@ -25,7 +25,8 @@ const ConnectorPicker: React.FC<ConnectorPickerProps> = ({ handleSave}) => {
 
     const listConnectors = connectors.map((connector: IConnector) =>
             <li id="eddd" key={connector.id} className={(dataStreetGuiState.selectedAsset == connector) ? classes.flexysel : classes.flexy} 
-            onClick={(e) => {if (e.detail === 1) dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SETSELECTEDASSET, payload: connector});  if (e.detail === 2) handleSave(connector);}}>
+            onClick={() =>  dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SETSELECTEDASSET, payload: connector}) } 
+            onDoubleClick={()=> dataStreetGuiState.dialogstate.saveButton(dataStreetGuiState.selectedAsset)}>
             <Image src={connector.logoimage} height={20} width={20} />
             {connector.name}
         </li>

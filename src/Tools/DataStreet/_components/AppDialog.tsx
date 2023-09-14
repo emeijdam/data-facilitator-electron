@@ -5,7 +5,7 @@ import { DataStreetGuiContext } from "../datastreet.gui.context";
 import { TDataStreetGuiActionType, TDataStreetGuiActions } from "../datastreet.gui.actions";
 import { TDataStreetGuiState } from "../datastreet.gui.state";
 
-export { CustomDialogTrigger, ConnectorDialogTrigger }
+export { MyAppDialog }
 
 const CustomDialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerChildProps>((props, ref) => {
     return (
@@ -15,30 +15,29 @@ const CustomDialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerChildProp
     );
 });
 
-interface ConnectorDialogTriggerProps {
-    buttonsize?: "medium" | "small" | "large",
-    handleSave: (values: unknown) => void;
-    // nodeid: string
+interface IAppDialogProps {
+    openstate: boolean,
+    opendispatch: (values: unknown) => void,
+ //   component: React.FC
 }
 
-const ConnectorDialogTrigger: React.FC<ConnectorDialogTriggerProps> = ({ buttonsize = "medium" , handleSave}) => {
-    const [openEditor, setOpenEditor] = useState(false);
-    
+const MyAppDialog: React.FC = () => {
+    const { dataStreetGuiState, dataStreetGuiActionDispatch } = useContext(DataStreetGuiContext);
 
     return (
-        <Dialog open={openEditor} onOpenChange={(event, data) => setOpenEditor(data.open)}>
-            <DialogTrigger disableButtonEnhancement>
-                {/* <Button size={buttonsize}>Get Data</Button> */}
-                <CustomDialogTrigger />
-            </DialogTrigger>
+        <Dialog open={dataStreetGuiState.dialogstate.open} onOpenChange={(event, data) => {  dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: data.open,  displayComponent: dataStreetGuiState.dialogstate.displayComponent, saveButton: dataStreetGuiState.dialogstate.saveButton} });
+          }} >
             <DialogSurface>
                 <DialogBody>
-                    <DialogTitle>Get Data</DialogTitle>
+                    <DialogTitle>Dialog sample</DialogTitle>
                     <DialogContent>
-                        <ConnectorPicker handleSave={handleSave}/>
+                        {/* <ConnectorPicker handleSave={handleSave}/> */}
+                        {dataStreetGuiState.dialogstate.displayComponent !== null  ? dataStreetGuiState.dialogstate.displayComponent
+                        : <>not set</>
+                        }
                     </DialogContent>
                     <DialogActions>
-                       <Button appearance="primary" onClick={handleSave}>Connect</Button>
+                       <Button appearance="primary" onClick={()=> dataStreetGuiState.dialogstate.saveButton(dataStreetGuiState.selectedAsset)}>Connect</Button>
                         <DialogTrigger disableButtonEnhancement>
                             <Button appearance="secondary">Cancel</Button>
                         </DialogTrigger>
