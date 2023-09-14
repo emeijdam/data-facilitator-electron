@@ -34,7 +34,7 @@ const ConnectorPicker: React.FC<ConnectorPickerProps> = ({ handleSave}) => {
 
     return (
         <div id='huh' className={classes.gridContainer}>
-            deze
+            Connectors:
             <ul>{listConnectors}</ul>
         </div>
     );

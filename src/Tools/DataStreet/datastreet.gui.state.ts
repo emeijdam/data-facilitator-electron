@@ -9,12 +9,19 @@ export interface IDialogState{
         displayComponent: React.ReactElement
 }
 
+export interface IDialogStateNode{
+    open: boolean,
+    saveButton: (node:TFlowNode) => void,
+    displayComponent: React.ReactElement
+}
+
 export interface IDataStreetGuiState {
     displayAssetDialog: string,
     showJSONStreet: boolean,
     loading: boolean,
     selectedAsset: IConnector | TFlowNode,
-    dialogstate: IDialogState
+    dialogstate: IDialogState,
+    dialogPropEditstate: IDialogStateNode
 }
 
 
@@ -23,7 +30,8 @@ export type TDataStreetGuiState = {
     showJSONStreet: boolean,
     loading: boolean,
     selectedAsset: IConnector | TFlowNode,
-    dialogstate: IDialogState
+    dialogstate: IDialogState,
+    dialogPropEditstate: IDialogStateNode
 }
 
 export const initialDataStreetGuiState:TDataStreetGuiState = {
@@ -35,5 +43,10 @@ export const initialDataStreetGuiState:TDataStreetGuiState = {
         open: false,
         saveButton: null,
         displayComponent: null
-    }
+    },
+    dialogPropEditstate: {
+        open: false,
+        saveButton: null,
+        displayComponent: null
+    },
 }

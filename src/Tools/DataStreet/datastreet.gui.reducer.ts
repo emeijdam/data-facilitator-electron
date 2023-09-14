@@ -20,6 +20,10 @@ export function dataStreetGuiReducer(state: IDataStreetGuiState, action: TDataSt
             console.log('showdialog new')
             console.log({...state, dialogstate:action.payload})
             return { ...state, dialogstate:action.payload}
+        case TDataStreetGuiActionType.NODEPROPERTYEDITORDIALOG:
+            console.log('showdialog new')
+            console.log({...state, dialogPropEditstate:action.payload})
+            return { ...state, dialogPropEditstate:action.payload}
         default:
             throw new Error();
     }

@@ -15,7 +15,7 @@ import { TDataStreetGuiActionType } from "./datastreet.gui.actions";
 import { ConnectorDialogTrigger } from "./_components/DiaStuff";
 import { nanoid } from "nanoid";
 import { DataStreetGuiContext } from "./datastreet.gui.context";
-import { MyAppDialog } from "./_components/AppDialog";
+import { MyAppDialog, MyPropAppDialog } from "./_components/AppDialog";
 import { ConnectorPicker } from "./_components/ConnectorPicker";
 import { FCTEST, MyPropertyEditor, MyPropertyEditorProps, huh } from "./MyPropEdit";
 
@@ -117,15 +117,16 @@ const DataStreetDocumentEditor: React.FC = () => {
                     {flowState.nodes.filter(node => node.nodeClass === NodeClass.SOURCENODE).map(node => (
                         <li key={node.nodeID} className={classes.flexy}>{node.name}
                             {/* <PropertyEditorDialogTrigger buttonsize="small" nodeid={node.nodeID} opendialog={dataStreetGuiState.displayAssetDialog == node.nodeID} setPropertyEditorOpenId={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOG, payload: node.nodeID })} /> */}
-                            <Button onClick={()=> dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: true, displayComponent: <MyPropertyEditor node={node}/>, saveButton: simple}})}>test</Button>
+                            <Button size="small" onClick={()=> dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.NODEPROPERTYEDITORDIALOG, payload: {open: true, displayComponent: <MyPropertyEditor node={node}/>, saveButton: simple}})}>Edit node</Button>
                             <Button size="small" onClick={() => flowActionDispatch({ type: TFlowActionType.DELETENODE, payload: node.nodeID })}>delete</Button></li>
                     ))}
                 </ul>
                 <DataStreetGuiContext.Provider value={{ dataStreetGuiState, dataStreetGuiActionDispatch }}>
                     {/* <ConnectorDialogTrigger handleSave={handleSaveAsset} /> */}
                
-                <Button  {...restoreFocusTargetAttribute} onClick={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: true, displayComponent: <ConnectorPicker/>, saveButton: handleSaveAsset} })}>dialogtest conn</Button>
+                <Button  {...restoreFocusTargetAttribute} onClick={() => dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.SHOWDIALOGNEW, payload: {open: true, displayComponent: <ConnectorPicker/>, saveButton: handleSaveAsset} })}>Add Data Asset</Button>
                 <MyAppDialog/>
+                <MyPropAppDialog/>
                 </DataStreetGuiContext.Provider>
                 <br></br>
 
@@ -139,9 +140,9 @@ const DataStreetDocumentEditor: React.FC = () => {
                         </li>
                     ))}
                 </ul>
-                <DataStreetGuiContext.Provider value={{ dataStreetGuiState, dataStreetGuiActionDispatch }}>
+                {/* <DataStreetGuiContext.Provider value={{ dataStreetGuiState, dataStreetGuiActionDispatch }}>
                     <ConnectorDialogTrigger handleSave={handleSaveAsset} />
-                </DataStreetGuiContext.Provider>
+                </DataStreetGuiContext.Provider> */}
                 <br></br>
                 <h1>Flow options</h1>
                 <Button onClick={handleClick}>RUN FLOW</Button>
