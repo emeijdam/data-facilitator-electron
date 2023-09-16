@@ -1,6 +1,10 @@
-import { Field, Input, Textarea, Button, tokens, makeResetStyles, makeStyles, shorthands } from "@fluentui/react-components";
-import { useRef, useState } from "react";
+import { Field, Input, Textarea, Button, tokens, makeResetStyles, makeStyles, shorthands, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, DialogTrigger } from "@fluentui/react-components";
+import { Fragment, useContext, useRef, useState } from "react";
 import { TFlowNode, FieldTypes } from "./datastreet.types";
+import { TDataStreetGuiActionType } from "./datastreet.gui.actions";
+import { DataStreetGuiContext } from "./datastreet.gui.context";
+import { FlowContext } from "./datastreet.context";
+import { TFlowActionType } from "./datastreet.actions";
 
 const useStackClassName = makeResetStyles({
     display: "flex",
@@ -44,24 +48,63 @@ const useStyles = makeStyles({
 
 });
 
+export { MyPropertyEditor, MyPropertyEditorProps , MyPropAppDialog};
 
-export { MyPropertyEditor, MyPropertyEditorProps , FCTEST, huh};
+// interface MyPropertyEditorDialogProps {
+//     nodeid: string,
+// }
 
-interface huh {
-    mystring: string,
+const MyPropAppDialog: React.FC = () => {
+    const { dataStreetGuiState, dataStreetGuiActionDispatch } = useContext(DataStreetGuiContext);
+    const { flowState, flowActionDispatch } = useContext(FlowContext);
+    
+    return (
+        <Dialog open={dataStreetGuiState.dialogPropEditstate.open} onOpenChange={(event, data) => {  dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.NODEPROPERTYEDITORDIALOG, payload: {open: data.open} });
+          }} >
+            <DialogSurface>
+                <DialogBody>
+                    <DialogTitle>Edit Node</DialogTitle>
+                    <DialogContent>
+                    <MyPropertyEditor nodeid={dataStreetGuiState.dialogPropEditstate.nodeid}/>
+                    </DialogContent>
+                    <DialogActions>
+                       <Button appearance="primary" onClick={() => {
+                        flowActionDispatch({type: TFlowActionType.UPDATENODE, payload: flowState.nodes.find(node => node.nodeID === dataStreetGuiState.dialogPropEditstate.nodeid)});
+                        dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.NODEPROPERTYEDITORDIALOG, payload: {open: false} })
+                       }}>Save</Button>
+                        <DialogTrigger disableButtonEnhancement>
+                            <Button appearance="secondary">Cancel</Button>
+                        </DialogTrigger>
+                    </DialogActions>
+                </DialogBody>
+            </DialogSurface>
+        </Dialog>
+    )
 }
 
-const FCTEST: React.FC<huh> = ({mystring}) => {
-    return <div>testing func: {mystring}</div>
+
+// interface huh {
+//     mystring: string,
+// }
+
+// const FCTEST: React.FC<huh> = ({mystring}) => {
+//     return <div>testing func: {mystring}</div>
+// }
+
+const CBSTablePick= () => {
+    return (
+        <span>pickme</span>
+    )
 }
 
 
 interface MyPropertyEditorProps {
-    node: TFlowNode,
+    nodeid: string,
 }
 // const MyPropertyEditor= ({node}: MyPropertyEditorProps): JSX.Element => {
-const MyPropertyEditor= ({node}: MyPropertyEditorProps): JSX.Element => {
-    const [nodeState, setNode] = useState(node);
+const MyPropertyEditor= ({nodeid}: MyPropertyEditorProps): JSX.Element => {
+    const { flowState, flowActionDispatch } = useContext(FlowContext);
+    const [node, setNode] = useState(flowState.nodes.find(node => node.nodeID === nodeid));
     const [openCBSTablePicker, setOpenCBSTablePicker] = useState(false);
     const classes = useStyles();
     const myRefname = useRef(null);
@@ -72,7 +115,7 @@ const MyPropertyEditor= ({node}: MyPropertyEditorProps): JSX.Element => {
         const name = event.target.name;
         const value = event.target.value;
         console.log(name, value)
-        console.log(nodeState)
+        console.log(node)
         // nodeState.properties = {...nodeState.properties, url: "test"}
         // setNode(nodeState => ({...nodeState, [name]: value}))
         setNode(nodeState => ({ ...nodeState, [name]: value }))
@@ -82,8 +125,8 @@ const MyPropertyEditor= ({node}: MyPropertyEditorProps): JSX.Element => {
         const name = event.target.name;
         const value = event.target.value;
         console.log(name, value)
-        console.log(nodeState.properties)
-        const property = nodeState.properties.find((property) => property.name == name);
+        console.log(node.properties)
+        const property = node.properties.find((property) => property.name == name);
         property.value = value;
         //nodeState.properties = {...nodeState.properties, [name]: value}
         console.log(property)
@@ -101,7 +144,7 @@ const MyPropertyEditor= ({node}: MyPropertyEditorProps): JSX.Element => {
         const { canceled, filePaths } = await window.electronD.openDialog('showOpenDialog', dialogConfig)
 
         if (canceled) return null;
-        const property = nodeState.properties.find((property) => property.name == name);
+        const property = node.properties.find((property) => property.name == name);
         property.value = filePaths;
         //nodeState.properties = {...nodeState.properties, [name]: value}
         //console.log(property)
@@ -110,10 +153,14 @@ const MyPropertyEditor= ({node}: MyPropertyEditorProps): JSX.Element => {
         return filePaths
     }
 
-    const handleCBSTablePicker = async (name: string) => {
-        setOpenCBSTablePicker(true)
+    const handleCBSTablePicker = async (propertyname: string) => {
+        const property = node.properties.find((property) => property.name == propertyname);
 
-        return "566789"
+        setOpenCBSTablePicker(true)
+        property.value = "566789";
+
+         setNode(nodeState => ({ ...nodeState, properties: nodeState.properties.filter((property) => property.name !== propertyname).concat(property) }))
+        return property.value
     }
 
     const properties = node.properties.map((property) => {
@@ -157,19 +204,27 @@ const MyPropertyEditor= ({node}: MyPropertyEditorProps): JSX.Element => {
 
     return (
         <div id='huh' className={classes.gridContainer}>
+            
             <div className={useStackClassName()}>
-                {/* <label>Node name: <input type="text" name="name" defaultValue={node.name} onChange={handleChange} /></label> */}
+               { !openCBSTablePicker ?
+               <Fragment>
                 <Field label={node.name}>
                     <Input name="name" defaultValue={node.name} onChange={handleChange} />
                 </Field>
-                {/* <label>Node name: <input type="text" name="description" defaultValue={node.description} onChange={handleChange} /></label> */}
                 <Field label={node.description}>
                     <Input name="description" defaultValue={node.description} onChange={handleChange} />
                 </Field>
+
                 {properties}
+                </Fragment>
+                : <CBSTablePick/>
+               }
             </div>
 
         </div>
     );
 }
+
+
+
 

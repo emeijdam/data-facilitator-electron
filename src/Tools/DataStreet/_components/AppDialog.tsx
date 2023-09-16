@@ -5,7 +5,7 @@ import { DataStreetGuiContext } from "../datastreet.gui.context";
 import { TDataStreetGuiActionType, TDataStreetGuiActions } from "../datastreet.gui.actions";
 import { TDataStreetGuiState } from "../datastreet.gui.state";
 
-export { MyAppDialog, MyPropAppDialog}
+export { MyAppDialog }
 
 const CustomDialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerChildProps>((props, ref) => {
     return (
@@ -52,29 +52,3 @@ const MyAppDialog: React.FC = () => {
     )
 }
 
-const MyPropAppDialog: React.FC = () => {
-    const { dataStreetGuiState, dataStreetGuiActionDispatch } = useContext(DataStreetGuiContext);
-    
-    return (
-        <Dialog open={dataStreetGuiState.dialogPropEditstate.open} onOpenChange={(event, data) => {  dataStreetGuiActionDispatch({ type: TDataStreetGuiActionType.NODEPROPERTYEDITORDIALOG, payload: {open: data.open,  displayComponent: dataStreetGuiState.dialogPropEditstate.displayComponent, saveButton: dataStreetGuiState.dialogPropEditstate.saveButton} });
-          }} >
-            <DialogSurface>
-                <DialogBody>
-                    <DialogTitle>Edit Node</DialogTitle>
-                    <DialogContent>
-                        {/* <ConnectorPicker handleSave={handleSave}/> */}
-                        {dataStreetGuiState.dialogPropEditstate.displayComponent !== null  ? dataStreetGuiState.dialogPropEditstate.displayComponent
-                        : <>not set</>
-                        }
-                    </DialogContent>
-                    <DialogActions>
-                       <Button appearance="primary" onClick={dataStreetGuiState.dialogPropEditstate.saveButton}>Save</Button>
-                        <DialogTrigger disableButtonEnhancement>
-                            <Button appearance="secondary">Cancel</Button>
-                        </DialogTrigger>
-                    </DialogActions>
-                </DialogBody>
-            </DialogSurface>
-        </Dialog>
-    )
-}
