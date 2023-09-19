@@ -10,9 +10,10 @@ export interface IDialogState{
 }
 
 export interface IDialogStateNode{
-    open: boolean,
-    saveButton: (node:TFlowNode) => void,
-    displayComponent: React.ReactElement
+   open: boolean,
+   // saveButton: (node:TFlowNode) => void,
+   // displayComponent: React.ReactElement
+   nodeid?: string | null
 }
 
 export interface IDataStreetGuiState {
@@ -46,7 +47,6 @@ export const initialDataStreetGuiState:TDataStreetGuiState = {
     },
     dialogPropEditstate: {
         open: false,
-        saveButton: null,
-        displayComponent: null
+        nodeid: null
     },
 }
