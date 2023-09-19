@@ -68,7 +68,7 @@ const MyPropAppDialog: React.FC = () => {
                         }
                     </DialogContent>
                     <DialogActions>
-                       <Button appearance="primary" onClick={dataStreetGuiState.dialogPropEditstate.saveButton}>Save</Button>
+                       <Button appearance="primary">Save</Button>
                         <DialogTrigger disableButtonEnhancement>
                             <Button appearance="secondary">Cancel</Button>
                         </DialogTrigger>
