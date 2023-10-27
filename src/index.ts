@@ -1,4 +1,6 @@
-import { app, BrowserWindow, dialog, ipcMain, Menu, shell } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu, session, shell } from 'electron';
+//import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-assembler';
 //var fs = require("fs")
 //import * as fs from 'fs'
 import { promises as fs } from "fs";
@@ -16,6 +18,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+const reactDevToolsPath = "C:\\Users\\ed\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\4.28.0_0"
 
 const createWindow = (): void => {
   // Create the browser window.
@@ -25,6 +28,7 @@ const createWindow = (): void => {
     title: 'Data Streets',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+    // contextIsolation: false
       //  nodeIntegration: true 
     },
   });
@@ -89,6 +93,7 @@ const createWindow = (): void => {
 
 };
 
+
 ipcMain.addListener('mouse', function (event, e) {
   event.returnValue = null;
   // mainWindow.webContents.inspectElement(e.x, e.y);
@@ -97,7 +102,17 @@ ipcMain.addListener('mouse', function (event, e) {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+//app.on('ready', createWindow);
+
+app.on('ready',  () => {
+  installExtension(REACT_DEVELOPER_TOOLS)
+  .then((name) => console.log(`Added Extension:  ${name}`))
+  .catch((err) => console.log('An error occurred: ', err));
+
+  console.log('creatWindow')
+  createWindow()
+
+});
 
 
 // Quit when all windows are closed, except on macOS. There, it's common
