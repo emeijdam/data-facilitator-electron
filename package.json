@@ -26,6 +26,7 @@
     "@electron-forge/plugin-webpack": "^6.1.1",
     "@electron/remote": "^2.0.9",
     "@testing-library/react": "^14.0.0",
+    "@types/file-saver": "^2.0.6",
     "@types/react": "^18.0.34",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
@@ -45,13 +46,17 @@
   },
   "dependencies": {
     "@fluentui/react-components": "^9.30.0",
+    "@json2csv/plainjs": "^7.0.3",
     "electron-squirrel-startup": "^1.0.0",
+    "file-saver": "^2.0.5",
     "markdown-loader": "^8.0.0",
     "nanoid": "^4.0.2",
     "openai": "^3.3.0",
+    "pako": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.6",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^3.0.1",
+    "stream": "^0.0.2"
   }
 }

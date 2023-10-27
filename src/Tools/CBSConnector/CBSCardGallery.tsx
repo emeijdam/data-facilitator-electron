@@ -43,7 +43,7 @@ const CBSCardGallery: React.FC<CBSCardGalleryProps> = ({ cbsdata, tableClick }: 
     const listItems = cbsdata.filter((table: { Status: string; }) => table.Status !== 'joop').map((cbsdata: any) =>
     (
         <div key={cbsdata.Identifier} className={styles.gridItemx}>
-            <CBSCard cbstable={cbsdata} tableClick={tableClick} />
+            <CBSCard key={cbsdata.Identifier} cbstable={cbsdata} tableClick={tableClick} />
         </div>
     )
     );
