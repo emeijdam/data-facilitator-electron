@@ -70,12 +70,7 @@ const CBSTool: React.FC = () => {
   };
 
 
-
-
-
   const handleGetDataset = (tableid: string, metaTableData) => {
-
-   
 
 
     let datasets = []
