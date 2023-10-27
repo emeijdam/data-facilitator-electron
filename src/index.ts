@@ -1,9 +1,11 @@
 import { app, BrowserWindow, dialog, ipcMain, Menu, session, shell } from 'electron';
 //import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-assembler';
+
 //var fs = require("fs")
 //import * as fs from 'fs'
-import { promises as fs } from "fs";
+import { promises as fs, createWriteStream } from "fs";
+import JSZip from 'jszip';
 // import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('@electron/remote/main').initialize()
@@ -18,7 +20,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const reactDevToolsPath = "C:\\Users\\ed\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\4.28.0_0"
+//const reactDevToolsPath = "C:\\Users\\ed\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\4.28.0_0"
 
 const createWindow = (): void => {
   // Create the browser window.
@@ -74,6 +76,32 @@ const createWindow = (): void => {
     return result;
   });
 
+  ipcMain.handle('createZip', async (event, filepath: string, contents: object[]) => {
+
+    const result = "done2";
+
+    const zip = new JSZip();
+
+    contents.map(item => {
+      zip.file(item['id'] + ".csv", item['values']);
+    })
+   // const img = zip.folder("images");
+    //img.file("smile.gif", imgData, {base64: true});
+    await  zip
+    .generateNodeStream({type:'nodebuffer',streamFiles:true})
+    .pipe(createWriteStream(filepath))
+    .on('finish', function () {
+        // JSZip generates a readable stream with a "end" event,
+        // but is piped here in a writable stream which emits a "finish" event.
+        console.log("out.zip written.");
+        console.log('HALLO2')
+        return result;
+    });
+
+   //console.log(ding)
+   
+  });
+
   // testing 
   ipcMain.on('set-title', (event, title) => {
     const webContents = event.sender
@@ -84,13 +112,11 @@ const createWindow = (): void => {
   ipcMain.handle('get-md-file',async (event, filepath: string) => {
     //console.log(filepath)
     const test = await fs.readFile(filepath, 'utf8')
-    console.log(test.toString())
+   // console.log(test.toString())
     return {filename: 'testme', payload: test.toString()}
     
   }
 )
-
-
 };
 
 

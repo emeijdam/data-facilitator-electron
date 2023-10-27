@@ -4,8 +4,8 @@ import CBSCardGallery from "./CBSCardGallery";
 import Tabulate from "../_datahelpers/Tabulate";
 import { Parser } from '@json2csv/plainjs';
 import { number as numberFormatter , stringExcel as stringExcelFormatter} from '@json2csv/formatters';
-import pako from 'pako'
-import { saveAs } from 'file-saver';
+// import pako from 'pako'
+// import { saveAs } from 'file-saver';
 
 export  { CBSTool };
 
@@ -78,7 +78,7 @@ const CBSTool: React.FC = () => {
    
 
 
-    let datasets = []
+    //let datasets = []
 
     // metaTableData.map((item => {
     //   console.log(item)
@@ -92,7 +92,7 @@ const CBSTool: React.FC = () => {
        
         
         // usefulData.value.map(item => item + "ed")
-         console.log(usefulData)
+       //  console.log(usefulData)
         //usefulData.value = usefulData.value.replace(/\r/g, "")
         // datasets.push({
         //   id: usefulData["@odata.context"],
@@ -106,7 +106,7 @@ const CBSTool: React.FC = () => {
           }};
           const parser = new Parser(opts);
           const csv = parser.parse(usefulData.value);
-         // console.log(csv);
+          console.log(csv);
        
 
         setTableDataSets((prevtableDataSets) => [
@@ -160,17 +160,24 @@ const exportData = (item) => {
 };
 
 
-const handleZippy = () => {
+const handleZippy = async () => {
+  //cbstable.Identifier
+  const dialogConfig = {
+    //title: 'Select a file',
+    //buttonLabel: 'This one will do',
+    defaultPath: `c:\\temp\\${currentTable.Identifier}.zip`,
+    properties: ['saveFile']
+};
 
-  const test = { my: 'super', puper: [456, 567], awesome: 'pako' };
-
-  const compressed = pako.deflate(JSON.stringify(test));
+const { canceled, filePath } = await window.electronD.openDialog('showSaveDialog', dialogConfig)
 
 
-  console.log('don')
-  var blob = new Blob(compressed, {type: "Content-type': 'application/zip;charset=utf-8"});
-  saveAs(blob, "hoi.zip")
-  
+if (canceled) return null;
+console.log(typeof filePath)
+
+  const ding = await window.electronD.createZip(filePath, tableDataSets)
+  //if (canceled) return null;
+  console.log(ding)
   // zip.generateAsync({type: "blob"}).then(content => {
   //   saveAs(content, "example.zip");
   // });
@@ -231,13 +238,11 @@ const handleZippy = () => {
           {item.id} <button type="button" onClick={()=>exportData(item)}>down</button>
           </div>
            })}
-         {tableDataSets.length > 0 && <button type="button" onClick={()=>handleZippy()}>down</button>}
+         {tableDataSets.length > 0 && <button type="button" onClick={async ()=>handleZippy()}>down</button>}
      </div>
       
     }
     </div>
   )
 }
-
-
 

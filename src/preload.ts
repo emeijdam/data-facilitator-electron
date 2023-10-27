@@ -22,7 +22,8 @@ import { contextBridge } from "electron";
       })
 
       contextBridge.exposeInMainWorld('electronD', {
-        openDialog: (method, config) => ipcRenderer.invoke('dialog', method, config)
+        openDialog: (method, config) => ipcRenderer.invoke('dialog', method, config),
+        createZip: (filepath, contents) => ipcRenderer.invoke('createZip', filepath, contents)
       });
 
       contextBridge.exposeInMainWorld('electronAPI', {
@@ -31,5 +32,4 @@ import { contextBridge } from "electron";
         getMarkdownFile: (filepath) => ipcRenderer.invoke('get-md-file', filepath)
       })
 
-      
   };

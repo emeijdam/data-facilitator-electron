@@ -29,10 +29,18 @@ const MarkDown: React.FC<AppProps> = ({ file }) => {
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-
+    const platform = window.navigator.platform
+  console.log(platform)
+  
     const fetchData = async () => {
-      const result = await window.electronAPI.getMarkdownFile('//Users//emeijdam//dev//data-facilitator-electron//src/Tools//MarkDown//README.md')
-      setMarkdown(result.payload)
+      if (platform == "Win32"){
+          const result = await window.electronAPI.getMarkdownFile('C:\\dev\\data-facilitator-electron\\src\\Tools\\MarkDown\\README.md')
+          setMarkdown(result.payload)
+      } else {
+        const result = await window.electronAPI.getMarkdownFile('//Users//emeijdam//dev//data-facilitator-electron//src/Tools//MarkDown//README.md')
+          setMarkdown(result.payload)
+      }
+      
     }
 
     fetchData().catch(console.error);
